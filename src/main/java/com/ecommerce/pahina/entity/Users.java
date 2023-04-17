@@ -13,8 +13,7 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +27,6 @@ public class Users {
     private String email;
     @Column(name ="password")
     private String password;
-
     @Column(name ="role_id")
     private int roleId;
 
@@ -42,11 +40,11 @@ public class Users {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")})
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany
-    @JoinTable(name = "users",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "product_id")})
-    private List<Products> products;
+//    @OneToMany
+//    @JoinTable(name = "users",
+//            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "product_id")})
+//    private List<Products> products;
 
 }
 

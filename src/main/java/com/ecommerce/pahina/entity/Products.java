@@ -12,8 +12,7 @@ import java.util.List;
 @Table(name = "products")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class Products {
 
     @Id
@@ -30,11 +29,8 @@ public class Products {
     @Column(name="productprice")
     private double productPrice;
 
-
-
     @Column(name = "productimage")
     private String productImage;
-
 
     @Column(name="user_id")
     private int userId;
