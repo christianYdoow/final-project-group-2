@@ -1,0 +1,9 @@
+.login{
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+}
+
+.text-field {
+    margin: 5px;
+}

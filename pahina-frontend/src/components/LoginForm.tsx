@@ -1,81 +1,106 @@
-import {  MouseEventHandler, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { MouseEventHandler, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Navbar from "./Navbar";
+import RegistrationForm from './RegistrationForm';
+import React from "react";
+import "../styles/LoginForm.css";
+import RegistrationDialog from './RegisterDialog';
+import reading from "../assets/reading.png";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const LoginForm = () => {
+  const [costumerEmail, setCostumerEmail] = useState("");
+  const [costumerPassword, setCostumerPassword] = useState("");
+  const navigate = useNavigate();
 
-    const [costumerEmail,setCostumerEmail]=useState("");
-    const [costumerPassword,setCostumerPassword]=useState("");
-    const navigate = useNavigate();
-
-    const login: MouseEventHandler<HTMLButtonElement> = async (event) => {
-        event.preventDefault();
-        try {
-          await axios.post("http://localhost:8080/api/login", {
-            email: costumerEmail,
-            password: costumerPassword,
-          }).then((res) => {
+  const login: MouseEventHandler<HTMLButtonElement> = async (event) => {
+    event.preventDefault();
+    try {
+      await axios
+        .post("http://localhost:8080/api/login", {
+          email: costumerEmail,
+          password: costumerPassword,
+        })
+        .then(
+          (res) => {
             console.log(res.data);
             if (res.data.message == "Email not exits") {
               alert("Email not exits");
             } else if (res.data.message == "Login Success") {
-              navigate('/home');
+              navigate("/home");
             } else {
               alert("Incorrect Email and Password not match");
             }
-          }, fail => {
+          },
+          (fail) => {
             console.error(fail); // Error!
-          });
-        } catch (err) {
-          alert(err);
-        }
-      };
-      
+          }
+        );
+    } catch (err) {
+      alert(err);
+    }
+  };
 
-    return (
-        <div>
-             <div className="container">
-             <div className="row">
-                 <h2>Login</h2>
-              <hr/>
-              </div>
-  
-              <div className="row">
-              <div className="col-sm-6">
-             <form>
-         <div className="form-group">
-           <label>Email</label>
-           <input type="email"  className="form-control" id="costumerEmail" placeholder="Enter Name"
-           
-           value={costumerEmail}
-           onChange={(event) => {
-             setCostumerEmail(event.target.value);
-           }}
-           
-           />
-  
-         </div>
-  
-         <div className="form-group">
-             <label>password</label>
-             <input type="password"  className="form-control" id="costumerPassword" placeholder="Enter Fee"
-             
-             value={costumerPassword}
-             onChange={(event) => {
-               setCostumerPassword(event.target.value);
-             }}
-             
-             />
-           </div>
-                   <button type="submit" className="btn btn-primary" onClick={login} >Login</button>
-               </form>
-  
-             </div>
-             </div>
-             </div>
-  
+  return (
+    <div>
+      <React.Fragment>
+        <Navbar />
+      </React.Fragment>
+
+      <div className="container login">
+        <div className="row align-items-center">
+          <div className="col-6">
+            <img
+              src={reading}
+              alt="girl reading"
+              className="reading img-fluid"
+            />
+          </div>
+          <div className="col-6 p-2">
+            <p className="fs-3">Sign in or Create an account</p>
+            <TextField
+              id="costumerEmail"
+              label="Email Address"
+              variant="outlined"
+              className="col-8"
+              value={costumerEmail}
+              onChange={(event) => {
+                setCostumerEmail(event.target.value);
+              }}
+            />{" "}
+            <br /> <br />
+            <TextField
+              label="Password"
+              id="costumerPassword"
+              variant="outlined"
+              className="col-8"
+              type="password"
+              value={costumerPassword}
+              onChange={(event) => {
+                setCostumerPassword(event.target.value);
+              }}
+            />{" "}
+            <br /> <br />
+            <Button
+              variant="contained"
+              className="sign-in-button col-8"
+              color="warning"
+              onClick={login}
+            >
+              Sign in
+            </Button>{" "}
+            <br /> <br />
+            {/* <Button variant="outlined" className="col-8" color="primary">
+              Create an Account
+            </Button> */}
+            <RegistrationDialog/>
+          </div>
+        </div>
       </div>
-     );
-}
+    </div>
+  );
+};
 
-export default LoginForm
+export default LoginForm;
