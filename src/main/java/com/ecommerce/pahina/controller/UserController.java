@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public Optional<Users> getUserById(@PathVariable long id){
+    public Users getUserById(@PathVariable long id){
         return userService.findUserById(id);
     }
 
@@ -38,6 +38,12 @@ public class UserController {
     public @ResponseBody LoginMessage findUserByEmail(@RequestBody LoginDto loginDto){
         return  userService.findUserByEmail(loginDto);
     }
+
+    @PatchMapping("update-user-details")
+    public String updateUserDetails (@RequestParam int user_id, @RequestBody UsersDto usersDto){
+        return userService.updateUserDetails(user_id,usersDto);
+    }
+
 
 
 }

@@ -17,9 +17,6 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
-
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -41,32 +38,16 @@ public class UserService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public String login (String email, String password){
-
-        if(findUserByEmailAndPassword(email,password) != null){
-            return "You've been logged in!";
-        }
-
-        else {
-            return "No ACCOUNT!";
-        }
-    }
-
     public List<Users> getAllUsers(){
         return userRepository.findAll();
     }
-    public Users findUserByEmailAndPassword(String email, String password){
-        return userRepository.findByEmailAndPassword(email,password);
-    }
-
-
 
     public LoginMessage findUserByEmail(LoginDto loginDto) {
         Users currentUser = userRepository.findByEmail(loginDto.getEmail());
         if (currentUser != null) {
             String password = loginDto.getPassword();
             String encodedPassword = currentUser.getPassword();
-            Boolean isCorrect = passwordEncoder.matches(password, encodedPassword);
+            boolean isCorrect = passwordEncoder.matches(password, encodedPassword);
             if (isCorrect) {
                 Optional<Users> user = userRepository.findOneByEmailAndPassword(loginDto.getEmail(), encodedPassword);
                 if (user.isPresent()) {
@@ -81,9 +62,7 @@ public class UserService {
             return new LoginMessage("Email not exist", false);
         }
     }
-
-
-    public Optional findUserById(long id){
+    public Users findUserById(long id){
         return  userRepository.findByUserId(id);
     }
 
@@ -96,8 +75,6 @@ public class UserService {
         updateUsers.setRoleId(usersDto.getRoleId());
         userRepository.save(updateUsers);
         return "Success";
-
-
     }
 
 

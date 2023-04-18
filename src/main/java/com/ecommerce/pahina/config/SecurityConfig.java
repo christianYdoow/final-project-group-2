@@ -3,6 +3,7 @@ package com.ecommerce.pahina.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,19 +35,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
 //                        authorize.requestMatchers("/web/register/**", "/web/login/**","/web/home").permitAll()
 //                                .requestMatchers("/web/products/**","/web/products/").hasRole("SELLER")
-//                                .requestMatchers("/web/cartlist").hasRole("BUYER")
-                            authorize
-                                .anyRequest().permitAll()
+//                                authorize.requestMatchers("/web/api/**").authenticated()
+                                authorize.anyRequest().permitAll()
 
                 ).formLogin(
 
-                        form -> form
-                                .loginPage("/web/api/login")
-                                .loginProcessingUrl("/web/login/success")
-                                .defaultSuccessUrl("/web/home")
-                                .failureUrl("/web/login")
-
-                                .permitAll()
+                        Customizer.withDefaults()
                 ).logout(
                         logout -> logout
                                 .deleteCookies("JSESSIONID")

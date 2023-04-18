@@ -11,6 +11,8 @@ public class ProductsDto {
     private int productQuantity;
     private double productPrice;
     private String productImage;
-    private int userId;
+
+    private String status;
+
 
 }
