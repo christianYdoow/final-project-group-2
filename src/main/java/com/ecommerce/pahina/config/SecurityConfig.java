@@ -3,7 +3,6 @@ package com.ecommerce.pahina.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -40,14 +39,14 @@ public class SecurityConfig {
                                 .anyRequest().permitAll()
 
                 ).formLogin(
-                        Customizer.withDefaults()
-//                        form -> form
-//                                .loginPage("/web/login")
-//                                .loginProcessingUrl("/web/login/success")
-//                                .defaultSuccessUrl("/web/home")
-//                                .failureUrl("/web/login")
-//
-//                                .permitAll()
+
+                        form -> form
+                                .loginPage("/web/api/login")
+                                .loginProcessingUrl("/web/login/success")
+                                .defaultSuccessUrl("/web/home")
+                                .failureUrl("/web/login")
+
+                                .permitAll()
                 ).logout(
                         logout -> logout
                                 .deleteCookies("JSESSIONID")

@@ -4,10 +4,7 @@ import com.ecommerce.pahina.dto.UsersDto;
 import com.ecommerce.pahina.entity.Users;
 import com.ecommerce.pahina.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,11 +16,29 @@ public class UserController {
     private UserService userService;
     @GetMapping("/list-users")
     public List<Users> getAllUsers() {return userService.getAllUsers();}
-
-    @PostMapping("/add-user")
-    public String addUser (UsersDto usersDto){
+    @PostMapping("/register")
+    public String register (UsersDto usersDto){
         return userService.saveUser(usersDto);
     }
 
+    @GetMapping("/login")
+    public String login (@RequestParam String email, @RequestParam String password){
+        return userService.login(email, password);
+    }
+    @GetMapping("/user-details/{user_id}")
+    public Users getUserById (@PathVariable int user_id){ return userService.findUserById(user_id);}
+    @GetMapping("/user-details/{email}")
+    public Users getUserByEmail (@PathVariable String email){ return userService.findUserByEmail(email);}
+
+@PatchMapping("update-user-details")
+    public String updateUserDetails (@RequestParam int user_id, @RequestBody UsersDto usersDto){
+        return userService.updateUserDetails(user_id,usersDto);
+}
+
+
+
 
 }
+
+
+
