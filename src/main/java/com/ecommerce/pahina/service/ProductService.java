@@ -57,7 +57,8 @@ public class ProductService {
 
         if (!file.isEmpty()) {
             try {
-                originalImageName = URLDecoder.decode(Objects.requireNonNull(file.getOriginalFilename()), StandardCharsets.UTF_8);
+                originalImageName = URLDecoder.decode(Objects.requireNonNull(file.getOriginalFilename()),
+                        StandardCharsets.UTF_8);
                 Path imagePath = Paths.get(IMAGE_DIR, originalImageName);
 
                 try (OutputStream os = Files.newOutputStream(imagePath)) {

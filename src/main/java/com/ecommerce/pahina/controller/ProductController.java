@@ -33,7 +33,8 @@ public class ProductController {
     }
     @PostMapping("/add-product")
     public @ResponseBody ResponseEntity<HttpStatus> addProductByForm(@RequestBody ProductsDto productsDto,
-                                                                     @RequestParam MultipartFile file, @RequestParam String imageName){
+                                                                     @RequestParam MultipartFile file,
+                                                                     @RequestParam String imageName){
         return productService.addProductByForm(productsDto,file,imageName);
     }
     @PostMapping("/add-product-file")

@@ -39,8 +39,14 @@ public class SecurityConfig {
                                 authorize.anyRequest().permitAll()
 
                 ).formLogin(
+                        form -> form
+                                .loginPage("/web/api/login")
+                                .loginProcessingUrl("/web/login/success")
+                                .defaultSuccessUrl("/web/home")
+                                .failureUrl("/web/login")
 
-                        Customizer.withDefaults()
+                                .permitAll()
+
                 ).logout(
                         logout -> logout
                                 .deleteCookies("JSESSIONID")
