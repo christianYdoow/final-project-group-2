@@ -8,7 +8,6 @@ import com.ecommerce.pahina.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +40,11 @@ public class UserService {
     public List<Users> getAllUsers(){
         return userRepository.findAll();
     }
+    public Optional<Users> findUserByEmailAndPassword(String email, String password){
+        return userRepository.findOneByEmailAndPassword(email,password);
+    }
+
+
 
     public LoginMessage findUserByEmail(LoginDto loginDto) {
         Users currentUser = userRepository.findByEmail(loginDto.getEmail());
@@ -62,6 +66,8 @@ public class UserService {
             return new LoginMessage("Email not exist", false);
         }
     }
+
+
     public Users findUserById(long id){
         return  userRepository.findByUserId(id);
     }
