@@ -37,13 +37,26 @@ public class UserService {
         users.setEmail(usersDto.getEmail());
         users.setPassword(passwordEncoder.encode(usersDto.getPassword()));
         users.setRoleId(usersDto.getRoleId());
-
         userRepository.save(users);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    public String login (String email, String password){
+
+        if(findUserByEmailAndPassword(email,password) != null){
+            return "You've been logged in!";
+        }
+
+        else {
+            return "No ACCOUNT!";
+        }
+    }
+
     public List<Users> getAllUsers(){
         return userRepository.findAll();
+    }
+    public Users findUserByEmailAndPassword(String email, String password){
+        return userRepository.findByEmailAndPassword(email,password);
     }
 
 
@@ -74,11 +87,20 @@ public class UserService {
         return  userRepository.findByUserId(id);
     }
 
-    public String checker(@CurrentSecurityContext(expression = "authentication?.name")
-                          String email){
-        return "checker";
+    public String updateUserDetails(int user_id, UsersDto usersDto){
+        Users updateUsers = findUserById(user_id);
+        updateUsers.setFirstName(usersDto.getFirstName());
+        updateUsers.setLastName(usersDto.getLastName());
+        updateUsers.setEmail(usersDto.getEmail());
+        updateUsers.setPassword(passwordEncoder.encode(usersDto.getPassword()));
+        updateUsers.setRoleId(usersDto.getRoleId());
+        userRepository.save(updateUsers);
+        return "Success";
+
 
     }
+
+
 
 
 }
