@@ -39,6 +39,12 @@ public class UserController {
         return  userService.findUserByEmail(loginDto);
     }
 
+    @PatchMapping("update-user-details")
+    public String updateUserDetails (@RequestParam int user_id, @RequestBody UsersDto usersDto){
+        return userService.updateUserDetails(user_id,usersDto);
+    }
+
+
 
 }
 

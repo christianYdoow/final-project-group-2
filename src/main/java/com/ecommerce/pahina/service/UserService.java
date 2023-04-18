@@ -16,9 +16,6 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
-
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -40,17 +37,6 @@ public class UserService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public String login (String email, String password){
-
-        if(findUserByEmailAndPassword(email,password) != null){
-            return "You've been logged in!";
-        }
-
-        else {
-            return "No ACCOUNT!";
-        }
-    }
-
     public List<Users> getAllUsers(){
         return userRepository.findAll();
     }
@@ -65,7 +51,7 @@ public class UserService {
         if (currentUser != null) {
             String password = loginDto.getPassword();
             String encodedPassword = currentUser.getPassword();
-            Boolean isCorrect = passwordEncoder.matches(password, encodedPassword);
+            boolean isCorrect = passwordEncoder.matches(password, encodedPassword);
             if (isCorrect) {
                 Optional<Users> user = userRepository.findOneByEmailAndPassword(loginDto.getEmail(), encodedPassword);
                 if (user.isPresent()) {
@@ -95,8 +81,6 @@ public class UserService {
         updateUsers.setRoleId(usersDto.getRoleId());
         userRepository.save(updateUsers);
         return "Success";
-
-
     }
 
 
