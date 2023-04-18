@@ -1,41 +1,43 @@
 package com.ecommerce.pahina.controller;
 
+import com.ecommerce.pahina.dto.LoginDto;
 import com.ecommerce.pahina.dto.UsersDto;
+import com.ecommerce.pahina.entity.LoginMessage;
 import com.ecommerce.pahina.entity.Users;
 import com.ecommerce.pahina.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/web/api")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
     @GetMapping("/list-users")
     public List<Users> getAllUsers() {return userService.getAllUsers();}
-    @PostMapping("/register")
-    public String register (UsersDto usersDto){
+
+    @PostMapping("/add-user")
+    public @ResponseBody ResponseEntity<HttpStatus> addUser( @RequestBody UsersDto usersDto){
         return userService.saveUser(usersDto);
     }
 
-    @GetMapping("/login")
-    public String login (@RequestParam String email, @RequestParam String password){
-        return userService.login(email, password);
+    @GetMapping("/users/{id}")
+    public Optional<Users> getUserById(@PathVariable long id){
+        return userService.findUserById(id);
     }
-    @GetMapping("/user-details/{user_id}")
-    public Users getUserById (@PathVariable int user_id){ return userService.findUserById(user_id);}
-    @GetMapping("/user-details/{email}")
-    public Users getUserByEmail (@PathVariable String email){ return userService.findUserByEmail(email);}
 
-@PatchMapping("update-user-details")
-    public String updateUserDetails (@RequestParam int user_id, @RequestBody UsersDto usersDto){
-        return userService.updateUserDetails(user_id,usersDto);
-}
-
-
+    @GetMapping("/login")
+    public @ResponseBody LoginMessage findUserByEmail(@RequestBody LoginDto loginDto){
+        return  userService.findUserByEmail(loginDto);
+    }
 
 
 }

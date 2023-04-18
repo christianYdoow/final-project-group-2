@@ -1,19 +1,14 @@
 package com.ecommerce.pahina.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
-
+@Data
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

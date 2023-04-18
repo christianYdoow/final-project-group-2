@@ -4,14 +4,14 @@ import com.ecommerce.pahina.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<Users,Long> {
 
     Users findByEmail(String email);
 
-    Users findByUserId(int userId);
+    Optional<Users> findOneByEmailAndPassword(String email,String password);
 
-    Users findByPassword(String password);
-
-    Users findByEmailAndPassword(String email, String password);
+    Optional findByUserId(long id);
 }
