@@ -34,7 +34,7 @@ public class UserController {
         return userService.findUserById(id);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public @ResponseBody LoginMessage findUserByEmail(@RequestBody LoginDto loginDto){
         return  userService.findUserByEmail(loginDto);
     }
