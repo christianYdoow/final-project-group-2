@@ -1,7 +1,4 @@
 package com.ecommerce.pahina.config;
-
-import com.ecommerce.pahina.entity.Users;
-import com.ecommerce.pahina.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,11 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -50,14 +43,14 @@ public class SecurityConfig {
                                 .anyRequest().permitAll()
 
                 ).formLogin(
-                        Customizer.withDefaults()
-//                        form -> form
-//                                .loginPage("/web/login")
-//                                .loginProcessingUrl("/web/login/success")
-//                                .defaultSuccessUrl("/web/home")
-//                                .failureUrl("/web/login")
-//
-//                                .permitAll()
+//                        Customizer.withDefaults()
+                        form -> form
+                                .loginPage("/web/login")
+                                .loginProcessingUrl("/web/login/success")
+                                .defaultSuccessUrl("/web/home")
+                                .failureUrl("/web/login")
+
+                                .permitAll()
 
 
                 ).logout(
