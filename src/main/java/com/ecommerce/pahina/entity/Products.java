@@ -28,6 +28,9 @@ public class Products {
     @Column(name = "productimage")
     private String productImage;
 
+    @Column(name = "status")
+    private String status;
+
     @Column(name="user_id")
     private int userId;
 

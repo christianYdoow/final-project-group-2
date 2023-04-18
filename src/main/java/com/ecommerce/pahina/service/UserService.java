@@ -17,9 +17,6 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
-
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -37,7 +34,6 @@ public class UserService {
         users.setEmail(usersDto.getEmail());
         users.setPassword(passwordEncoder.encode(usersDto.getPassword()));
         users.setRoleId(usersDto.getRoleId());
-
         userRepository.save(users);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -46,14 +42,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
-
-
     public LoginMessage findUserByEmail(LoginDto loginDto) {
         Users currentUser = userRepository.findByEmail(loginDto.getEmail());
         if (currentUser != null) {
             String password = loginDto.getPassword();
             String encodedPassword = currentUser.getPassword();
-            Boolean isCorrect = passwordEncoder.matches(password, encodedPassword);
+            boolean isCorrect = passwordEncoder.matches(password, encodedPassword);
             if (isCorrect) {
                 Optional<Users> user = userRepository.findOneByEmailAndPassword(loginDto.getEmail(), encodedPassword);
                 if (user.isPresent()) {
@@ -68,17 +62,22 @@ public class UserService {
             return new LoginMessage("Email not exist", false);
         }
     }
-
-
-    public Optional findUserById(long id){
+    public Users findUserById(long id){
         return  userRepository.findByUserId(id);
     }
 
-    public String checker(@CurrentSecurityContext(expression = "authentication?.name")
-                          String email){
-        return "checker";
-
+    public String updateUserDetails(int user_id, UsersDto usersDto){
+        Users updateUsers = findUserById(user_id);
+        updateUsers.setFirstName(usersDto.getFirstName());
+        updateUsers.setLastName(usersDto.getLastName());
+        updateUsers.setEmail(usersDto.getEmail());
+        updateUsers.setPassword(passwordEncoder.encode(usersDto.getPassword()));
+        updateUsers.setRoleId(usersDto.getRoleId());
+        userRepository.save(updateUsers);
+        return "Success";
     }
+
+
 
 
 }
