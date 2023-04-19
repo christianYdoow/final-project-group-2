@@ -11,14 +11,14 @@ public class Carts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="cart_id")
-    private int cartId;
+    private long cartId;
 
     @Column(name="product_id")
-    private int productId;
+    private long productId;
 
     @Column(name="user_id")
-    private int userId;
+    private long userId;
     @Column(name="quantity")
-    private int quantity;
+    private long quantity;
 
 }
