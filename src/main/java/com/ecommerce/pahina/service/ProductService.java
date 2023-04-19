@@ -8,6 +8,7 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -50,15 +51,14 @@ public class ProductService {
         return productRepository.findByStatus("active", pageable);
     }
 
-    public static final String IMAGE_DIR = "G:\\My Drive\\final-project-group-2\\target\\classes\\static";
+    public static final String IMAGE_DIR = "C:\\Users\\Sammuel\\OneDrive\\Pictures\\picturesproject";
 
     public String uploadImage(MultipartFile file, String imageName) {
         String originalImageName;
 
         if (!file.isEmpty()) {
             try {
-                originalImageName = URLDecoder.decode(Objects.requireNonNull(file.getOriginalFilename()),
-                        StandardCharsets.UTF_8);
+                originalImageName = URLDecoder.decode(file.getOriginalFilename(), "UTF-8");
                 Path imagePath = Paths.get(IMAGE_DIR, originalImageName);
 
                 try (OutputStream os = Files.newOutputStream(imagePath)) {
@@ -75,6 +75,7 @@ public class ProductService {
     }
 
     public ResponseEntity<HttpStatus> updateProductById(long product_id, ProductsDto productsDto){
+
         Products updateProducts = findProductById(product_id);
         updateProducts.setProductName(productsDto.getProductName());
         updateProducts.setProductDescription(productsDto.getProductDescription());
@@ -87,7 +88,8 @@ public class ProductService {
     }
 
 
-    public ResponseEntity<HttpStatus> addProductByForm(ProductsDto productsDto, MultipartFile file, String imageName){
+    public ResponseEntity<HttpStatus> addProductByForm(ProductsDto productsDto,
+                                                       MultipartFile file, String imageName){
         Products products = new Products();
         productsDto.setProductImage(uploadImage(file, imageName));
         products.setProductName(productsDto.getProductName());
@@ -96,11 +98,12 @@ public class ProductService {
         products.setProductQuantity(productsDto.getProductQuantity());
         products.setProductImage(productsDto.getProductImage());
         products.setStatus(productsDto.getStatus());
+        products.setUserId(1);
         productRepository.save(products);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @Transactional
     public ResponseEntity<HttpStatus> addProductByFile(MultipartFile file) throws IOException {
         Reader reader = new InputStreamReader(file.getInputStream());
         CsvToBean<Products> csvToBean = new CsvToBeanBuilder<Products>(reader)
@@ -116,9 +119,11 @@ public class ProductService {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
             else{
-                entityManager.persist(products);
+
+                productRepository.saveAll(products);
             }
         }
+
 
 
         return new ResponseEntity<>(HttpStatus.OK);

@@ -5,6 +5,7 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Home from './components/Home';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
+import ProductForm from './components/ProductForm'
 
 //Admin
 import AdminLogin from './components/admin/AdminLogin';
