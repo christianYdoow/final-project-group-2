@@ -31,7 +31,7 @@ export default function TransitionsModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen} variant="outlined" color="primary"  className="col-8">Create an Account</Button>
+      <Button onClick={handleOpen} variant="outlined" color="primary"  className="col-md-8 col-12">Create an Account</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -49,6 +49,14 @@ export default function TransitionsModal() {
           <Box sx={style}>
             
             <RegistrationForm/>
+            <Button
+        variant="outlined"
+        className="sign-in-button col-12 mt-2"
+        color="primary"
+        onClick={handleClose}
+      >
+        Cancel
+      </Button>
           </Box>
         </Fade>
       </Modal>
