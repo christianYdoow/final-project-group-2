@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { MouseEventHandler } from "react";
+import { Link } from 'react-router-dom';
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -49,68 +50,64 @@ const RegistrationForm = () => {
       </Typography>
       <Typography id="transition-modal-description" sx={{ mt: 2 }}>
         Fill in the fields below to create an account in Pahina Bookstore. If
-        you already have an account, please <u>Sign in</u> .
+        you already have an account, please Sign in.
       </Typography>
 
       <br />
       <TextField
-      id="costumerFirstName"
+        id="costumerFirstName"
         label="First Name"
         type="text"
         variant="outlined"
         className=" text-field col-12 pb-2"
-       
         value={costumerFirstName}
-                onChange={(event) => {
-                  setCostumerFirstName(event.target.value);
-                }}
+        onChange={(event) => {
+          setCostumerFirstName(event.target.value);
+        }}
       />
       <TextField
-       id="costumerLastName"
+        id="costumerLastName"
         label="Last Name"
         variant="outlined"
         className=" text-field col-12 pb-2"
-  
         value={costumerLastName}
-                onChange={(event) => {
-                  setCostumerLastName(event.target.value);
-                }}
+        onChange={(event) => {
+          setCostumerLastName(event.target.value);
+        }}
       />
       <TextField
-      id="costumerEmail"
-     type="email"
+        id="costumerEmail"
+        type="email"
         label="Email Address"
         variant="outlined"
         className=" text-field col-12 pb-2"
-     
         value={costumerEmail}
-                onChange={(event) => {
-                  setCostumerEmail(event.target.value);
-                }}
+        onChange={(event) => {
+          setCostumerEmail(event.target.value);
+        }}
       />
       <TextField
-      id="costumerPassword"
-      type="password"
+        id="costumerPassword"
+        type="password"
         label="Password"
         variant="outlined"
         className=" text-field col-12 pb-2"
-        
         value={costumerPassword}
-                onChange={(event) => {
-                  setcostumerPassword(event.target.value);
-                }}
+        onChange={(event) => {
+          setcostumerPassword(event.target.value);
+        }}
       />
-     <TextField
-  id="confirmedPassword"
-  type="password"
-  label="Confirm Password"
-  variant="outlined"
-  className="text-field col-12 pb-2"
-  value={confirmedPassword}
-  onChange={(event) => {
-    setConfirmedPassword(event.target.value);
-  }}
-/>
+      <TextField
+        id="confirmedPassword"
+        type="password"
+        label="Confirm Password"
+        variant="outlined"
+        className="text-field col-12 pb-2"
+        value={confirmedPassword}
+        onChange={(event) => {
+          setConfirmedPassword(event.target.value);
+        }}
+      />
       <Button
         variant="contained"
         className="sign-in-button col-12"
@@ -118,14 +115,6 @@ const RegistrationForm = () => {
         onClick={save}
       >
         Create account
-      </Button>
-
-      <Button
-        variant="outlined"
-        className="sign-in-button col-12 mt-2"
-        color="primary"
-      >
-        Cancel
       </Button>
     </div>
   );

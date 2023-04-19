@@ -7,11 +7,12 @@ import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
 import ProductForm from './components/ProductForm'
 
+//Admin
+import AdminLogin from './components/admin/AdminLogin';
+import AdminHome from './components/admin/AdminAddProduct';
+
 
 function App() {
-
-    
-
     return (
       <div>
  
@@ -21,7 +22,12 @@ function App() {
               <Route path="/register" element= { <RegistrationForm/>} />
               <Route path="/" element= { <LoginForm/>} />
               <Route path="/login" element= { <LoginForm/>} />
-              <Route path="/add-product" element= { <ProductForm/>} />
+
+
+              {/* Admin Route */}
+              <Route path="/admin" element= { <AdminLogin/>} />
+              <Route path="/admin/home" element= { <AdminHome/>} />
+
             </Routes>
         </BrowserRouter>
       
