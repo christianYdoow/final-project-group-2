@@ -20,7 +20,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @GetMapping("/products")
-    public ResponseEntity<List<Products>> getProducts(@RequestParam int page,@RequestParam int pageSize){
+    public ResponseEntity<List<Products>> getProducts(@RequestParam(required = false) String searchKey,
+                                                      @RequestParam(required = false) String Filter,
+            @RequestParam int page,@RequestParam int pageSize){
 
         List<Products> products = productService.getPageOfProducts(page,pageSize);
         return ResponseEntity.ok(products);

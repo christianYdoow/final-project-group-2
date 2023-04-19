@@ -125,7 +125,7 @@ const ProductForm = () => {
 
       <form onSubmit={handleSubmitCsv} encType="multipart/form-data">
     <label htmlFor="csv">CSV:</label>
-    <input type="file" id="csv" name="csv" accept=".csv" onChange={handleFileChangeCsv} required />
+    <input type="file" id="csv" name="csv" accept=".csv" onChange={handleFileChangeCsv}  />
 
     <button type="submit">Submit</button>
     </form>
