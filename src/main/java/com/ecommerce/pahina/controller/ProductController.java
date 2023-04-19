@@ -35,7 +35,7 @@ public class ProductController {
         return productService.updateProductById(product_id,productsDto);
     }
     @PostMapping("/add-product")
-    public @ResponseBody ResponseEntity<HttpStatus> addProductByForm(@RequestBody ProductsDto productsDto,
+    public  ResponseEntity<HttpStatus> addProductByForm(@ModelAttribute ProductsDto productsDto,
                                                                      @RequestParam MultipartFile file,
                                                                      @RequestParam String imageName){
         return productService.addProductByForm(productsDto,file,imageName);
