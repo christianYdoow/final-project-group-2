@@ -27,7 +27,8 @@ function App() {
               {/* Admin Route */}
               <Route path="/admin" element= { <AdminLogin/>} />
               <Route path="/admin/home" element= { <AdminHome/>} />
-
+              <Route path="/add-product" element= { <ProductForm/>} />
+              
             </Routes>
         </BrowserRouter>
       
