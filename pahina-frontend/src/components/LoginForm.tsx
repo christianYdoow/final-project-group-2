@@ -1,13 +1,19 @@
-
 import { MouseEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
-import RegistrationForm from './RegistrationForm';
 import React from "react";
-import "../styles/LoginForm.css";
+
+//components
 import RegistrationDialog from './RegisterDialog';
+
+//assets
 import reading from "../assets/reading.png";
+
+//styles
+import "../styles/LoginForm.css";
+
+//Material UI
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -32,7 +38,7 @@ const LoginForm = () => {
             } else if (res.data.message == "Login Success") {
               navigate("/home");
             } else {
-              alert("Incorrect Email and Password not match");
+              alert("Incorrect Email or Password not match");
             }
           },
           (fail) => {
@@ -66,9 +72,11 @@ const LoginForm = () => {
               label="Email Address"
               variant="outlined"
               className="col-md-8 col-12"
+              required
               value={costumerEmail}
               onChange={(event) => {
                 setCostumerEmail(event.target.value);
+                
               }}
             />{" "}
             <br /> <br />
@@ -78,6 +86,7 @@ const LoginForm = () => {
               variant="outlined"
               className="col-md-8 col-12"
               type="password"
+              required
               value={costumerPassword}
               onChange={(event) => {
                 setCostumerPassword(event.target.value);
@@ -93,9 +102,7 @@ const LoginForm = () => {
               Sign in
             </Button>{" "}
             <br /> <br />
-            {/* <Button variant="outlined" className="col-8" color="primary">
-              Create an Account
-            </Button> */}
+      
             <RegistrationDialog/>
           </div>
         </div>

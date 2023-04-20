@@ -72,7 +72,7 @@ public class ProductService {
         }
     }
 
-    public static final String IMAGE_DIR = "C:\\Users\\Sammuel\\OneDrive\\Pictures\\picturesproject";
+    public static final String IMAGE_DIR = "C:\\Users\\mariah.miranda\\Downloads\\pahina-resources";
 
     public String uploadImage(MultipartFile file, String imageName) {
         String originalImageName;

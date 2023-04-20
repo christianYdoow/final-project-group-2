@@ -1,0 +1,26 @@
+/* Home page */
+
+.product-card {
+  transition: 0.3s;
+}
+
+.product-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-add-cart {
+  color: #FF9800;
+  background-color: white;
+  border-color: #FF9800;
+  border-style: solid;
+  border-radius: 5px;
+  transition: 0.3s;
+  font-weight: 400;
+    padding: 5px;
+}
+
+.btn-add-cart:hover {
+    box-shadow: 0 8px 16px 0 rgba(185, 185, 185, 0.2);
+    background-color:#FF9800;
+    color: white;
+  }
