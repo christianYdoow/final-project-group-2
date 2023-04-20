@@ -9,14 +9,12 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0); // initialize the state variable to 0
   const [page, setPage] = useState(1);
-  const pageSize = 10; // set the page size to 10
+  const [searchKey, setSearchKey] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8080/web/api/admin/products?page=${page}&pageSize=10`
-        );
+        const response = await fetch(`http://localhost:8080/web/api/admin/products?page=${page}&pageSize=10&searchKey=${searchKey}`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -25,7 +23,7 @@ const Home = () => {
     };
 
     fetchData();
-  }, [page]);
+  }, [page, searchKey]);
 
   const handleNextPage = () => {
     setPage((prevPage) => prevPage + 1);
@@ -35,6 +33,11 @@ const Home = () => {
     if (page > 1) {
       setPage((prevPage) => prevPage - 1);
     }
+  };
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value;
+    setSearchKey(query);
+    setPage(1);
   };
 
   const handlePageChange = (pageNumber: React.SetStateAction<number>) => {

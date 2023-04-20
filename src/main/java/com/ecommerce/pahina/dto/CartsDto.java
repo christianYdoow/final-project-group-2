@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class CartsDto {
-    private int cartId;
-    private int productId;
-    private int quantity;
-    private int userId;
+    private long cartId;
+    private long productId;
+    private long quantity;
+    private long userId;
 
 }

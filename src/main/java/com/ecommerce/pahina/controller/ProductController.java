@@ -20,11 +20,14 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @GetMapping("/products")
-    public ResponseEntity<List<Products>> getProducts(@RequestParam(required = false) String searchKey,
-                                                      @RequestParam(required = false) String Filter,
-            @RequestParam int page,@RequestParam int pageSize){
+    public ResponseEntity<List<Products>> getProducts(
+            @RequestParam int page,@RequestParam int pageSize,
+            @RequestParam(required = false) String searchKey,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortOrder
+            ){
 
-        List<Products> products = productService.getPageOfProducts(page,pageSize);
+        List<Products> products = productService.getPageOfProducts(page,pageSize,searchKey,sortBy, sortOrder);
         return ResponseEntity.ok(products);
     }
 

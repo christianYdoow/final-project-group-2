@@ -46,9 +46,30 @@ public class ProductService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public List<Products> getPageOfProducts(int page, int pageSize){
-        Pageable pageable = PageRequest.of(page - 1, pageSize, Sort.by("productId").ascending());
-        return productRepository.findByStatus("active", pageable);
+    public List<Products> getPageOfProducts(int page, int pageSize,
+                                            String searchBy,String sortBy, String sortOrder){
+//        Pageable pageable = PageRequest.of(page - 1, pageSize, Sort.by("productId").ascending());
+//        return productRepository.findByStatus("active", pageable);
+
+        Pageable pageable;
+        if (sortBy != null){
+            Sort sort;
+            if(sortOrder != null && sortOrder.equalsIgnoreCase("descending")){
+                sort = Sort.by(sortBy).descending();
+            }else{
+                sort = Sort.by(sortBy).ascending();
+            }
+            pageable = PageRequest.of(page - 1,pageSize,sort);
+        } else{
+            pageable = PageRequest.of(page - 1, pageSize);
+        }
+
+        if(searchBy != null && !searchBy.isEmpty()){
+            return productRepository.findByStatusAndProductNameContainingIgnoreCase("active", searchBy, pageable );
+        }
+        else{
+            return productRepository.findByStatus("active", pageable);
+        }
     }
 
     public static final String IMAGE_DIR = "C:\\Users\\mariah.miranda\\Downloads\\pahina-resources";
