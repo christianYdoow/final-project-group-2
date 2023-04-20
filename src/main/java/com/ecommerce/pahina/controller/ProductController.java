@@ -5,6 +5,7 @@ import com.ecommerce.pahina.dto.ProductsDto;
 import com.ecommerce.pahina.entity.Products;
 import com.ecommerce.pahina.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +21,15 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @GetMapping("/products")
-    public ResponseEntity<List<Products>> getProducts(
-            @RequestParam int page,@RequestParam int pageSize,
-            @RequestParam(required = false) String searchKey,
-            @RequestParam(required = false) String sortBy,
-            @RequestParam(required = false) String sortOrder
+    public ResponseEntity<Page<Products>> getProducts(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(required = false, defaultValue = "") String searchKey,
+            @RequestParam(required = false, defaultValue = "productName") String sortBy,
+            @RequestParam(required = false, defaultValue = "ascending") String sortOrder
             ){
 
-        List<Products> products = productService.getPageOfProducts(page,pageSize,searchKey,sortBy, sortOrder);
+        Page<Products> products = productService.getPageOfProducts(page,pageSize,searchKey,sortBy, sortOrder);
         return ResponseEntity.ok(products);
     }
 

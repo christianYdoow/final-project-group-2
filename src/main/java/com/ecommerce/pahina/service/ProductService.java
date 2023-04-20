@@ -10,9 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,9 +34,6 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     public ResponseEntity<HttpStatus> removeProductById(long product_id){
         Products products = findProductById(product_id);
         products.setStatus("inactive");
@@ -46,11 +41,8 @@ public class ProductService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public List<Products> getPageOfProducts(int page, int pageSize,
+    public Page<Products> getPageOfProducts(int page, int pageSize,
                                             String searchBy,String sortBy, String sortOrder){
-//        Pageable pageable = PageRequest.of(page - 1, pageSize, Sort.by("productId").ascending());
-//        return productRepository.findByStatus("active", pageable);
-
         Pageable pageable;
         if (sortBy != null){
             Sort sort;
@@ -63,13 +55,27 @@ public class ProductService {
         } else{
             pageable = PageRequest.of(page - 1, pageSize);
         }
+        Page<Products> pageResult;
 
         if(searchBy != null && !searchBy.isEmpty()){
-            return productRepository.findByStatusAndProductNameContainingIgnoreCase("active", searchBy, pageable );
+            pageResult =  productRepository.findByStatusAndProductNameContainingIgnoreCase("active", searchBy, pageable );
         }
         else{
-            return productRepository.findByStatus("active", pageable);
+            pageResult = productRepository.findByStatus("active", pageable);
         }
+
+        int totalPages = getAllProducts().size();
+        return new PageImpl<>(pageResult.getContent(), pageable, totalPages)
+                .map(product -> {
+                    Products products = new Products();
+                    products.setProductId(product.getProductId());
+                    products.setProductName(product.getProductName());
+                    products.setProductDescription(product.getProductDescription());
+                    products.setProductPrice(product.getProductPrice());
+                    products.setProductImage(product.getProductImage());
+                    products.setStatus(product.getStatus());
+                    return products;
+                });
     }
 
     public static final String IMAGE_DIR = "C:\\Users\\mariah.miranda\\Downloads\\pahina-resources";
@@ -154,6 +160,9 @@ public class ProductService {
         return productRepository.findById(product_id).orElseThrow();
     }
 
+    private List<Products> getAllProducts(){
+        return productRepository.findByStatus("active");
+    }
     private boolean existByProductName(String productName){
         return productRepository.existsByProductName(productName);
     }
