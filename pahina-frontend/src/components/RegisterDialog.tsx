@@ -1,25 +1,22 @@
-import * as React from 'react';
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import TextField from "@mui/material/TextField";
+import * as React from "react";
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import Button from "@mui/material/Button";
 
+import RegistrationForm from "./RegistrationForm";
 
-import RegistrationForm from './RegistrationForm';
-
-import '../styles/LoginForm.css'
+import "../styles/LoginForm.css";
 
 const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -31,7 +28,14 @@ export default function TransitionsModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen} variant="outlined" color="primary"  className="col-md-8 col-12">Create an Account</Button>
+      <Button
+        onClick={handleOpen}
+        variant="outlined"
+        color="primary"
+        className="col-md-8 col-12"
+      >
+        Create an Account
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -47,16 +51,15 @@ export default function TransitionsModal() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            
-            <RegistrationForm/>
+            <RegistrationForm />
             <Button
-        variant="outlined"
-        className="sign-in-button col-12 mt-2"
-        color="primary"
-        onClick={handleClose}
-      >
-        Cancel
-      </Button>
+              variant="outlined"
+              className="sign-in-button col-12 mt-2"
+              color="primary"
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
           </Box>
         </Fade>
       </Modal>

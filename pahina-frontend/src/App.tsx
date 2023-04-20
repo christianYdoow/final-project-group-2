@@ -5,11 +5,13 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Home from './components/Home';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
-import ProductForm from './components/ProductForm'
+import ProductForm from './components/admin/ProductForm'
 
 //Admin
 import AdminLogin from './components/admin/AdminLogin';
-import AdminHome from './components/admin/AdminAddProduct';
+import AdminHome from './components/admin/AdminHome';
+import ProductManagement from './components/admin/AdminTabPanel';
+import ProductDetails from './components/ProductDetails';
 
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
               <Route path="/admin" element= { <AdminLogin/>} />
               <Route path="/admin/home" element= { <AdminHome/>} />
               <Route path="/add-product" element= { <ProductForm/>} />
+              <Route path="/product" element= { <ProductManagement/>} />
+              <Route path="/product-details" element= { <ProductDetails/>} />
               
             </Routes>
         </BrowserRouter>
