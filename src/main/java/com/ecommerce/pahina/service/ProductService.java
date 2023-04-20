@@ -78,7 +78,7 @@ public class ProductService {
                 });
     }
 
-    public static final String IMAGE_DIR = "C:\\Users\\mariah.miranda\\Downloads\\pahina-resources";
+    public static final String IMAGE_DIR = ".\\pahina-frontend\\src\\assets";
 
     public String uploadImage(MultipartFile file, String imageName) {
         String originalImageName;

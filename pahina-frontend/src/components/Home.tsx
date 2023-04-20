@@ -57,7 +57,7 @@ const Home = () => {
             {products.map(product => (
               <div className="col-md-3 mb-4">
                 <div key={product.productId}>
-                  <img className="card-img-top" src={product.productImage} height="250px" />
+                  <img className="card-img-top" src={'src/assets/' + product.productImage} height="250px" />
                   <div className="card-body">
                     <h5 className="card-title pb-2 pt-2">{product.productName.substring(0, 12)}</h5>
 
