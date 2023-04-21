@@ -2,6 +2,7 @@
 
 .product-card {
   transition: 0.3s;
+  padding: 10px;
 }
 
 .product-card:hover {

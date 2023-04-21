@@ -1,7 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-//components
-// import {logout} from './Logout';
 
 //assests
 import pahinaLogo from "../assets/pahina-logo.png";
@@ -10,11 +8,10 @@ import pahinaLogo from "../assets/pahina-logo.png";
 import "../styles/Navbar.css";
 
 //Material UI
-import ProfileIcon from "@mui/icons-material/AccountCircle";
-import SearchIcon from "@mui/icons-material/Search";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { purple } from '@mui/material/colors';
+import UserSetting from "./UserSetting";
+import Cart from "./GoToCart.tsx";
 
+//components
 
 const Navbar = () => {
   return (
@@ -48,22 +45,13 @@ const Navbar = () => {
                 aria-label="Search"
                 style={{ width: "380px" }}
               />
-              <button className="btn btn-outline-warning" type="submit">
-                <SearchIcon />
-              </button>
             </form>
 
             <div className="d-flex ms-auto">
-              <NavLink to="/" className="d-flex navbar-link">
-                <ProfileIcon color="warning"/>
-                <p className="m-0 ps-1">Mariah Gift</p>
-              </NavLink>
-
-              <NavLink to="/cart" className="d-flex navbar-link">
-                <ShoppingCartIcon color="warning" />
-                <p className="m-0 ps-1"> Cart</p>
-              </NavLink>
+              <UserSetting />
+              <Cart />
             </div>
+
           </div>
         </div>
       </nav>

@@ -12,6 +12,8 @@ import AdminLogin from './components/admin/AdminLogin';
 import AdminHome from './components/admin/AdminHome';
 import ProductManagement from './components/admin/AdminTabPanel';
 import ProductDetails from './components/ProductDetails';
+import CartPage from './components/CartPage';
+
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
               <Route path="/register" element= { <RegistrationForm/>} />
               <Route path="/" element= { <LoginForm/>} />
               <Route path="/login" element= { <LoginForm/>} />
+              <Route path="/product-details" element= { <ProductDetails/>} />
+              <Route path="/cart" element= { <CartPage/>} />
 
 
               {/* Admin Route */}
@@ -31,7 +35,7 @@ function App() {
               <Route path="/admin/home" element= { <AdminHome/>} />
               <Route path="/add-product" element= { <ProductForm/>} />
               <Route path="/product" element= { <ProductManagement/>} />
-              <Route path="/product-details" element= { <ProductDetails/>} />
+              
               
             </Routes>
         </BrowserRouter>

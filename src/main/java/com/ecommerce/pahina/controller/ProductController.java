@@ -36,6 +36,7 @@ public class ProductController {
     @PatchMapping("/remove-product")
     public @ResponseBody ResponseEntity<HttpStatus> removeProduct(@RequestParam int product_id)
     { return productService.removeProductById(product_id);}
+
     @PatchMapping("/update-product")
     public @ResponseBody ResponseEntity<HttpStatus> updateProductDetails (@RequestParam int product_id,
                                                                           @RequestBody ProductsDto productsDto){

@@ -7,7 +7,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import UpdateProductDetails from "./UpdateProductDetails";
 
@@ -67,14 +66,12 @@ export default function BasicTable() {
               <TableCell>{row.productQuantity}</TableCell>
               <TableCell>{row.productStatus}</TableCell>
               <TableCell>
-                <button type="button" className="btn btn-info me-2 ">
-          
-             <UpdateProductDetails/>
-                </button>
-                <button type="button" className="btn btn-danger">
+            
+                <UpdateProductDetails/>
+                {/* <button type="button" className="btn btn-danger">
                 <DeleteIcon/>
                
-                </button>
+                </button> */}
               </TableCell>
             </TableRow>
           ))}
