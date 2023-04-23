@@ -1,8 +1,11 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import Navbar from "./Navbar";
-import { NavLink } from "react-router-dom";
+
 //styles
 import "../styles/User.css";
+
+//Material UI
+import { TextField } from "@mui/material";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -44,18 +47,21 @@ const Home = () => {
     setPage(1);
   };
 
- 
 
   return (
     <>
-      <Navbar />
+     
       <div>
+      <Navbar />
+      <div className="container d-flex align-items-center">
+        <TextField type="text" value={searchKey} onChange={handleSearch} placeholder="Search..." className="ms-auto" style={{ width: "400px" }}/>
+        </div>
         <h2 className="text-center m-4">Just For You</h2>
         <div className="container mt-5">
           <div className="row ">
-            <input type="text" value={searchKey} onChange={handleSearch} placeholder="Search..." />
+
             {products.map(product => (
-              <div className="col-md-3 mb-4">
+              <div className="col-md-3 mb-4 product-card">
                 <div key={product.productId}>
                   <img className="card-img-top" src={'src/assets/' + product.productImage} height="250px" />
                   <div className="card-body">
@@ -75,11 +81,28 @@ const Home = () => {
             ))}
 
             <div className="d-flex justify-content-center my-4">
-            <button onClick={handlePrevPage} disabled={page === 1}>Prev</button>
+            {/* <button onClick={handlePrevPage} disabled={page === 1}>Prev</button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
               <button key={pageNumber} onClick={() => setPage(pageNumber)}>{pageNumber}</button>
             ))}
-            <button onClick={handleNextPage} disabled={page === totalPages}>Next</button>
+            <button onClick={handleNextPage} disabled={page === totalPages}>Next</button> */}
+
+
+            <nav aria-label="Page navigation example">
+              <ul className="pagination">
+                <li className="page-item"><button className="page-link" onClick={handlePrevPage} disabled={page === 1}>Previous</button></li>
+              
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+                    <li className="page-item">
+                  <button className="page-link" key={pageNumber} onClick={() => setPage(pageNumber)}>{pageNumber}</button>
+                  </li>
+                ))}
+           
+                <li className="page-item"><button className="page-link" onClick={handleNextPage} disabled={page === totalPages}>Next</button></li>
+              </ul>
+            </nav>
+
+            
           </div>
           </div>
         </div>

@@ -211,9 +211,6 @@ const ProductForm = () => {
                     >
                       <MenuItem value={"active"}>Active</MenuItem>
                       <MenuItem value={"inactive"}>Inactive</MenuItem>
-                      <MenuItem value={"Select a value"}>
-                        Select a value
-                      </MenuItem>
                     </Select>
                   </FormControl>
                 </Box>

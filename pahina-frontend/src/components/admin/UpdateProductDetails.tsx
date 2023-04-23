@@ -16,7 +16,7 @@ import FormControl from "@mui/material/FormControl";
 
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
-interface ProductFormValues {
+interface UpdateProductFormValues {
   productName: string;
   productDescription: string;
   productQuantity: number;
@@ -39,7 +39,7 @@ const UpdateProductDetails = () => {
     }));
   };
 
-  const [formValues, setFormValues] = useState<ProductFormValues>({
+  const [formValues, setFormValues] = useState<UpdateProductFormValues>({
     productName: "",
     productDescription: "",
     productQuantity: 0,
@@ -113,13 +113,13 @@ const UpdateProductDetails = () => {
   return (
     <div>
       <div>
-        {/* <Button variant="outlined">
-          Add Product
-        </Button> */}
-        <ModeEditIcon onClick={handleOpen} />
+        <Button variant="outlined" onClick={handleOpen} >
+          <ModeEditIcon/>
+        </Button>
+        
         <Modal
-          aria-labelledby="add-product-modal"
-          aria-describedby="add-product-modal"
+          aria-labelledby="update-product-modal"
+          aria-describedby="update-product-modal"
           open={open}
           onClose={handleClose}
           closeAfterTransition
@@ -132,7 +132,7 @@ const UpdateProductDetails = () => {
         >
           <Fade in={open}>
             <Box sx={style}>
-              <Typography id="add-product-modal" variant="h6" component="h2">
+              <Typography id="update-product-modal" variant="h6" component="h2">
                 Update Product Details
               </Typography>
 

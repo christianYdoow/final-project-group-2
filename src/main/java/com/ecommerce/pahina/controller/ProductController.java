@@ -33,11 +33,12 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @PatchMapping("/remove-product")
-    public @ResponseBody ResponseEntity<HttpStatus> removeProduct(@RequestParam int product_id)
+    @PatchMapping("/remove-product/{productId}")
+    public @ResponseBody ResponseEntity<HttpStatus> removeProduct(@PathVariable(value = "productId") int product_id)
     { return productService.removeProductById(product_id);}
-    @PatchMapping("/update-product")
-    public @ResponseBody ResponseEntity<HttpStatus> updateProductDetails (@RequestParam int product_id,
+
+    @PatchMapping("/update-product/{productId}")
+    public @ResponseBody ResponseEntity<HttpStatus> updateProductDetails (@PathVariable(value = "productId") int product_id,
                                                                           @RequestBody ProductsDto productsDto){
         return productService.updateProductById(product_id,productsDto);
     }
@@ -54,10 +55,10 @@ public class ProductController {
 
     }
 
-
-
-
-
+    @GetMapping("/get-product-id/{productId}")
+    public Products findProductById(@PathVariable("productId") int product_id) {
+        return productService.findProductById(product_id);
+    }
 
 
 }

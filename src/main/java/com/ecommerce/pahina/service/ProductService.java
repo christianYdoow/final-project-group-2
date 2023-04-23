@@ -74,6 +74,7 @@ public class ProductService {
                     products.setProductPrice(product.getProductPrice());
                     products.setProductImage(product.getProductImage());
                     products.setStatus(product.getStatus());
+                    products.setProductQuantity(product.getProductQuantity());
                     return products;
                 });
     }
@@ -156,11 +157,11 @@ public class ProductService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private Products findProductById(long product_id ){
+    public Products findProductById(long product_id){
         return productRepository.findById(product_id).orElseThrow();
     }
 
-    private List<Products> getAllProducts(){
+    public List<Products> getAllProducts(){
         return productRepository.findByStatus("active");
     }
     private boolean existByProductName(String productName){
