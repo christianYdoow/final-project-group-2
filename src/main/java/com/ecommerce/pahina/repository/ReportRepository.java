@@ -23,15 +23,17 @@ public interface ReportRepository extends JpaRepository<Reports,Long> {
     List<Object[]> countDayReportByProductId(@Param("dayDate")Date dayDate);
 
     @Query("SELECT r.productId as product, COUNT(*) " +
-            "as dayCount, SUM(COUNT(*)) OVER() AS totalCount" +
-            " FROM Reports r where EXTRACT(month FROM buyDate) = EXTRACT(month FROM :monthYearDate)" +
-            " AND EXTRACT (year FROM buyDate) = EXTRACT(year FROM :monthYearDate)" +
+            "as monthYearCount, SUM(COUNT(*)) OVER() AS totalCount" +
+            " FROM Reports r " +
+            "WHERE EXTRACT(month FROM CAST(r.buyDate AS date)) = EXTRACT(month FROM CAST(:monthYearDate AS date))" +
+            " AND EXTRACT (year FROM CAST(r.buyDate AS date)) = EXTRACT(year FROM CAST(:monthYearDate AS date))" +
             " GROUP BY product ORDER BY product")
     List<Object[]> countMonthReportByProductId(@Param("monthYearDate") Date monthYearDate);
 
     @Query("SELECT r.productId as product, COUNT(*) " +
-            "as dayCount, SUM(COUNT(*)) OVER() AS totalCount" +
-            " AND EXTRACT (year FROM buyDate) = EXTRACT(year FROM :yearDate)" +
+            "as yearCount, SUM(COUNT(*)) OVER() AS totalCount" +
+            " FROM Reports r WHERE " +
+            " EXTRACT (year FROM CAST(r.buyDate AS date)) = EXTRACT(year FROM CAST(:yearDate AS date))" +
             " GROUP BY product ORDER BY product")
     List<Object[]> countYearReportByProductId(@Param("yearDate") Date yearDate);
 

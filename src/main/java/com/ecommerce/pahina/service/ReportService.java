@@ -32,7 +32,7 @@ public class ReportService {
 
     public String getAllReportByMonthYear(LocalDate monthYearDate){
         Date date = java.sql.Date.valueOf(monthYearDate);
-        List<Object[]> reportCounts = reportRepository.countDayReportByProductId(date);
+        List<Object[]> reportCounts = reportRepository.countMonthReportByProductId(date);
         return reportCounts.stream()
                 .map(row -> String.format("Product %d: %d ", row[0], row[1]))
                 .collect(Collectors.joining("\n"));
@@ -40,7 +40,7 @@ public class ReportService {
 
     public String getAllReportByYear(LocalDate yearDate){
         Date date = java.sql.Date.valueOf(yearDate);
-        List<Object[]> reportCounts = reportRepository.countDayReportByProductId(date);
+        List<Object[]> reportCounts = reportRepository.countYearReportByProductId(date);
         return reportCounts.stream()
                 .map(row -> String.format("Product %d: %d ", row[0], row[1]))
                 .collect(Collectors.joining("\n"));

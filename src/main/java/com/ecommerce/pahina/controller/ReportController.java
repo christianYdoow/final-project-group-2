@@ -21,17 +21,19 @@ public class ReportController {
 
     @GetMapping("/reports-day")
     public String getReportDay(@RequestParam LocalDate dayDate){
+
         return reportService.getAllReportByDay(dayDate);
     }
 
     @GetMapping("/reports-month")
-    public String getReportMonthYear(@RequestParam LocalDate dayDate){
-        return reportService.getAllReportByMonthYear(dayDate);
+    public String getReportMonthYear(@RequestParam LocalDate monthYearDate){
+        return reportService.getAllReportByMonthYear(monthYearDate);
     }
 
     @GetMapping("/reports-year")
-    public String getReportYear(@RequestParam LocalDate dayDate){
-        return reportService.getAllReportByYear(dayDate);
+    public String getReportYear(@RequestParam LocalDate yearDate){
+
+        return reportService.getAllReportByYear(yearDate);
     }
 
 
