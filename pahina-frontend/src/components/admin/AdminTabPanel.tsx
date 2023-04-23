@@ -6,6 +6,8 @@ import Box from "@mui/material/Box";
 import UploadCsv from "./UploadCsv";
 import ProductList from "./ProductList";
 import ProductForm from "./ProductForm";
+import UserReports from "./reports/UserReports";
+import ProductReports from "./reports/ProductReports";
 
 interface AdminTabPanelProps {
   children?: React.ReactNode;
@@ -82,6 +84,9 @@ export default function AdminTabs() {
 
         <AdminTabPanel value={value} index={1}>
           Reports
+
+          <UserReports/>
+          <ProductReports/>
         </AdminTabPanel>
       </div>
     </>
