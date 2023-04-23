@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -19,9 +20,18 @@ public class ReportController {
     private ReportService reportService;
 
     @GetMapping("/reports-day")
-    public String getReportDay(
-    ){
-        return reportService.getAllReportByDay();
+    public String getReportDay(@RequestParam LocalDate dayDate){
+        return reportService.getAllReportByDay(dayDate);
+    }
+
+    @GetMapping("/reports-month")
+    public String getReportMonthYear(@RequestParam LocalDate dayDate){
+        return reportService.getAllReportByMonthYear(dayDate);
+    }
+
+    @GetMapping("/reports-year")
+    public String getReportYear(@RequestParam LocalDate dayDate){
+        return reportService.getAllReportByYear(dayDate);
     }
 
 

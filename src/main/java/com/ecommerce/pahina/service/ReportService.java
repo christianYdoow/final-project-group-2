@@ -22,9 +22,24 @@ public class ReportService {
 
 
 
-    public String getAllReportByDay(){
-        LocalDate today = LocalDate.now();
-        Date date = java.sql.Date.valueOf(today);
+    public String getAllReportByDay(LocalDate dayDate){
+        Date date = java.sql.Date.valueOf(dayDate);
+        List<Object[]> reportCounts = reportRepository.countDayReportByProductId(date);
+        return reportCounts.stream()
+                .map(row -> String.format("Product %d: %d ", row[0], row[1]))
+                .collect(Collectors.joining("\n"));
+    }
+
+    public String getAllReportByMonthYear(LocalDate monthYearDate){
+        Date date = java.sql.Date.valueOf(monthYearDate);
+        List<Object[]> reportCounts = reportRepository.countDayReportByProductId(date);
+        return reportCounts.stream()
+                .map(row -> String.format("Product %d: %d ", row[0], row[1]))
+                .collect(Collectors.joining("\n"));
+    }
+
+    public String getAllReportByYear(LocalDate yearDate){
+        Date date = java.sql.Date.valueOf(yearDate);
         List<Object[]> reportCounts = reportRepository.countDayReportByProductId(date);
         return reportCounts.stream()
                 .map(row -> String.format("Product %d: %d ", row[0], row[1]))
