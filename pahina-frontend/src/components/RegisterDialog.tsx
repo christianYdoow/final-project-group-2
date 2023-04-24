@@ -4,10 +4,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
-
-import RegistrationForm from "./RegistrationForm";
-
-import "../styles/LoginForm.css";
+import Register from '../pages/Register';
+import '../styles/LoginForm.css'
 
 const style = {
   position: "absolute" as "absolute",
@@ -51,7 +49,9 @@ export default function TransitionsModal() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <RegistrationForm />
+
+            <Register/>
+
             <Button
               variant="outlined"
               className="sign-in-button col-12 mt-2"
