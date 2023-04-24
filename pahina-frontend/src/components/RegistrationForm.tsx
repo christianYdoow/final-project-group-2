@@ -20,6 +20,11 @@ const RegistrationForm = () => {
       alert("Password do not match. Try again");
       return;
     }
+
+    if (!costumerFirstName || !costumerLastName || !costumerEmail || !costumerPassword || !confirmedPassword) {
+      alert("Please fill in all required fields.");
+      return;
+    }
     try {
       await axios.post(
         "http://localhost:8080/api/add-user",
@@ -45,10 +50,10 @@ const RegistrationForm = () => {
 
   return (
     <div>
-      <Typography id="transition-modal-title" variant="h6" component="h2">
+      <Typography id="register-modal" variant="h6" component="h2">
         Create an account
       </Typography>
-      <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+      <Typography id="register-modal" sx={{ mt: 2 }}>
         Fill in the fields below to create an account in Pahina Bookstore. If
         you already have an account, please Sign in.
       </Typography>
@@ -60,6 +65,7 @@ const RegistrationForm = () => {
         type="text"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerFirstName}
         onChange={(event) => {
           setCostumerFirstName(event.target.value);
@@ -70,6 +76,7 @@ const RegistrationForm = () => {
         label="Last Name"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerLastName}
         onChange={(event) => {
           setCostumerLastName(event.target.value);
@@ -81,6 +88,7 @@ const RegistrationForm = () => {
         label="Email Address"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerEmail}
         onChange={(event) => {
           setCostumerEmail(event.target.value);
@@ -92,6 +100,7 @@ const RegistrationForm = () => {
         label="Password"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerPassword}
         onChange={(event) => {
           setcostumerPassword(event.target.value);
@@ -103,9 +112,11 @@ const RegistrationForm = () => {
         label="Confirm Password"
         variant="outlined"
         className="text-field col-12 pb-2"
+        required
         value={confirmedPassword}
         onChange={(event) => {
           setConfirmedPassword(event.target.value);
+       
         }}
       />
       <Button

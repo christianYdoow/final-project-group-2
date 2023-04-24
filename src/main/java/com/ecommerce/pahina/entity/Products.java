@@ -40,5 +40,11 @@ public class Products {
             inverseJoinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "cart_id")})
     private List<Carts> carts;
 
+    @ManyToMany
+    @JoinTable(name = "reports",
+            joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "product_id")},
+            inverseJoinColumns = {@JoinColumn(name = "report_id", referencedColumnName = "report_id")})
+    private List<Reports> reports;
+
 }
 

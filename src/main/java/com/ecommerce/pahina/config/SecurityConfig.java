@@ -20,17 +20,12 @@ import java.util.List;
 @EnableWebSecurity
 
 public class SecurityConfig {
-
-
     @Autowired
     private UserDetailsService userDetailsService;
-
-
     @Bean
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http ) throws Exception {
         http.csrf().disable()
@@ -41,7 +36,6 @@ public class SecurityConfig {
 //                                .requestMatchers("/api/costumer/**").hasRole("COSTUMER")
                             authorize
                                 .anyRequest().permitAll()
-
                 ).formLogin(
 //                        Customizer.withDefaults()
                         form -> form
@@ -49,10 +43,7 @@ public class SecurityConfig {
                                 .loginProcessingUrl("/web/login/success")
                                 .defaultSuccessUrl("/web/home")
                                 .failureUrl("/web/login")
-
                                 .permitAll()
-
-
                 ).logout(
                         logout -> logout
                                 .deleteCookies("JSESSIONID")

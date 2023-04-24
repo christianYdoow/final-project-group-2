@@ -3,6 +3,7 @@ import React,{ useState,useEffect } from 'react';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
 
+
 import ProductForm from './components/ProductForm'
 
 //Admin
@@ -118,11 +119,13 @@ function App() {
             <Route path="/costumer/register" element= { <Register/>} />
             <Route path="/costumer/home" element= { <Home products={products} handleNextPage={handleNextPage} handlePrevPage={handlePrevPage}/>} />
             <Route path="/costumer/cart" element= { <Cart  cartItems={cartItems} setCartItems={setCartItems} handleRemoveFromCart={handleRemoveFromCart}/>} />
-          
+            <Route path="/product-details" element= { <ProductDetails/>} />
             {/* Admin Route */}
             <Route path="/admin" element= { <AdminLogin/>} />
             <Route path="/admin/home" element= { <AdminHome/>} />
             <Route path="/add-product" element= { <ProductForm/>} />
+            <Route path="/product" element= { <ProductManagement/>} />
+            <Route path="/update-product/:productId" element= { <UpdateProductDetails2/>} />
             
             
           </Routes>
@@ -130,6 +133,7 @@ function App() {
     
   </div>
   )
+
 }
 
 export default App

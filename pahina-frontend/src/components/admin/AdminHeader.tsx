@@ -6,7 +6,7 @@ import { deepOrange } from "@mui/material/colors";
 const AdminHeader = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg">
+      <nav className="navbar navbar-expand-lg shadow-sm p-3 mb-5 bg-body">
         <div className="container">
           <a className="navbar-brand" href="#">
             <img
