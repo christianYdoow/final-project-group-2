@@ -13,7 +13,7 @@ public class PaymentHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="product_id")
+    @Column(name="payment_id")
     private int paymentId;
 
     @Column(name="quantity")

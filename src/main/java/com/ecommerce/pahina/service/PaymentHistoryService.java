@@ -17,8 +17,7 @@ public class PaymentHistoryService {
     @Autowired
     PaymentHistoryRepository paymentHistoryRepository;
 
-    public Page<PaymentHistory> getPageOfPaymentHistory(int user_id,
-                                                        int product_id,
+    public Page<Object[]> getPageOfPaymentHistory(int user_id,
                                                         int page, int pageSize,
                                                   String searchBy, String sortBy, String sortOrder){
         Pageable pageable;
@@ -33,16 +32,10 @@ public class PaymentHistoryService {
         } else{
             pageable = PageRequest.of(page - 1, pageSize);
         }
-        Page<PaymentHistory> paymentHistoryPage;
+        Page<Object[]> paymentHistoryPage;
 
-        if(searchBy != null && !searchBy.isEmpty()){
-            paymentHistoryPage =  paymentHistoryRepository.findByUserIdAndProductId(
-                    user_id,product_id,searchBy, pageable );
-        }
-        else{
-            paymentHistoryPage = paymentHistoryRepository.findByUserIdAndProductId(
-                    user_id,product_id, pageable);
-        }
+        paymentHistoryPage =  paymentHistoryRepository.test(
+                user_id, pageable );
 
         return paymentHistoryPage;
 
