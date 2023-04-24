@@ -13,7 +13,8 @@ import AdminHome from './components/admin/AdminHome';
 import ProductManagement from './components/admin/AdminTabPanel';
 import ProductDetails from './components/ProductDetails';
 import CartPage from './components/CartPage';
-import UpdateProductDetails2 from './components/admin/UpdateProductDetails2';
+import UpdateProductDetails2 from './components/admin/UpdateProductDetails';
+import PaymentForm from './components/PaymentForm';
 
 
 
@@ -29,6 +30,7 @@ function App() {
               <Route path="/login" element= { <LoginForm/>} />
               <Route path="/product-details" element= { <ProductDetails/>} />
               <Route path="/cart" element= { <CartPage/>} />
+              <Route path="/payment" element= { <PaymentForm/>} />
 
 
               {/* Admin Route */}

@@ -21,34 +21,44 @@ const AdminLogin = () => {
    
   const [costumerEmail, setAdminEmail] = useState("");
   const [costumerPassword, setAdminPassword] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const navigate = useNavigate();
 
   const adminLogin: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.preventDefault();
-    try {
-      await axios
-        .post("http://localhost:8080/api/admin-login", {
-          email: costumerEmail,
-          password: costumerPassword,
-        })
-        .then(
-          (res) => {
-            console.log(res.data);
-            if (res.data.message == "Email not exits") {
-              alert("Email not exits");
-            } else if (res.data.message == "Login Success") {
-              navigate("/admin-home");
-            } else {
-              alert("Incorrect Email and Password not match");
+    if (costumerEmail === "" || costumerPassword === "") {
+      setEmailError("Email cannot be empty");
+      setPasswordError("Password cannot be empty");
+    } else {
+      try {
+        await axios
+          .post("http://localhost:8080/api/admin-login", {
+            email: costumerEmail,
+            password: costumerPassword,
+          })
+          .then(
+            (res) => {
+              console.log(res.data);
+              if (res.data.message == "Email not exits") {
+                alert("Email not exits");
+              } else if (res.data.message == "Login Success") {
+                navigate("/admin-home");
+              } else {
+                alert("Incorrect Email and Password not match");
+              }
+            },
+            (fail) => {
+              console.error(fail); // Error!
             }
-          },
-          (fail) => {
-            console.error(fail); // Error!
-          }
-        );
-    } catch (err) {
-      alert(err);
+          );
+      } catch (err) {
+        alert(err);
+      }
     }
+
   };
 
   return (
@@ -59,7 +69,7 @@ const AdminLogin = () => {
 
       <div className="container login">
         <div className="row align-items-center">
-        <div className="col-md-6 ml-sm-auto col-lg-6 px-4 text-end">
+        <div className="col-md-6 ml-sm-auto col-lg-6 px-4 text-end order-2 order-md-1">
             <p className="fs-3">Welcome, Admin!</p>
             <TextField
               id="costumerEmail"
@@ -69,7 +79,10 @@ const AdminLogin = () => {
               value={costumerEmail}
               onChange={(event) => {
                 setAdminEmail(event.target.value);
+                setEmailError("");
               }}
+              error={Boolean(emailError)}
+              helperText={emailError}
             />{" "}
             <br /> <br />
             <TextField
@@ -81,7 +94,10 @@ const AdminLogin = () => {
               value={costumerPassword}
               onChange={(event) => {
                 setAdminPassword(event.target.value);
+                setPasswordError("");
               }}
+              error={Boolean(passwordError)}
+              helperText={passwordError}
             />{" "}
             <br /> <br />
             <Button
@@ -94,7 +110,7 @@ const AdminLogin = () => {
             </Button>{" "}
             <br /> <br />
           </div>
-          <div className="col-md-6 d-none d-md-block ">
+          <div className="col-md-6 order-1 order-md-2">
             <img
               src={reading}
               alt="girl reading"

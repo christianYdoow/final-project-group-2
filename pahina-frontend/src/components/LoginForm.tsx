@@ -20,35 +20,41 @@ import Button from "@mui/material/Button";
 const LoginForm = () => {
   const [costumerEmail, setCostumerEmail] = useState("");
   const [costumerPassword, setCostumerPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
   const login: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.preventDefault();
-    try {
-      await axios
-        .post("http://localhost:8080/api/login", {
+    if (costumerEmail === "" || costumerPassword === "") {
+      setEmailError("Email cannot be empty");
+      setPasswordError("Password cannot be empty");
+    } else {
+      try {
+        await axios.post("http://localhost:8080/api/login", {
           email: costumerEmail,
           password: costumerPassword,
-        })
-        .then(
+        }).then(
           (res) => {
             console.log(res.data);
             if (res.data.message == "Email not exits") {
-              alert("Email not exits");
+              setEmailError("Email not found");
             } else if (res.data.message == "Login Success") {
               navigate("/home");
             } else {
-              alert("Incorrect Email or Password not match");
+              setPasswordError("Incorrect password");
             }
           },
           (fail) => {
             console.error(fail); // Error!
           }
         );
-    } catch (err) {
-      alert(err);
+      } catch (err) {
+        alert(err);
+      }
     }
   };
+  
 
   return (
     <div>
@@ -58,14 +64,14 @@ const LoginForm = () => {
 
       <div className="container login">
         <div className="row align-items-center">
-          <div className="col-12 d-none d-md-block col-md-6 ">
+          <div className="col-12 col-md-6 ">
             <img
               src={reading}
               alt="girl reading"
               className="reading img-fluid"
             />
           </div>
-          <div className="col-12 col-md-6 p-2">
+          <div className="col-12 col-md-6 p-2 ">
             <p className="fs-3">Sign in or Create an account</p>
             <TextField
               id="costumerEmail"
@@ -76,8 +82,10 @@ const LoginForm = () => {
               value={costumerEmail}
               onChange={(event) => {
                 setCostumerEmail(event.target.value);
-                
+                setEmailError("");
               }}
+              error={Boolean(emailError)}
+              helperText={emailError}
             />{" "}
             <br /> <br />
             <TextField
@@ -90,7 +98,10 @@ const LoginForm = () => {
               value={costumerPassword}
               onChange={(event) => {
                 setCostumerPassword(event.target.value);
+                setPasswordError("");
               }}
+              error={Boolean(passwordError)}
+              helperText={passwordError}
             />{" "}
             <br /> <br />
             <Button

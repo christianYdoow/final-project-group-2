@@ -14,7 +14,7 @@ const RegistrationForm = () => {
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const costumerRoleId = 1;
 
-  const save: MouseEventHandler<HTMLButtonElement> = async (event) => {
+  const save= async (event: React.FormEvent<HTMLFormElement>) =>{
     event.preventDefault();
     if (costumerPassword !== confirmedPassword) {
       alert("Password do not match. Try again");
@@ -22,7 +22,7 @@ const RegistrationForm = () => {
     }
 
     if (!costumerFirstName || !costumerLastName || !costumerEmail || !costumerPassword || !confirmedPassword) {
-      alert("Please fill in all required fields.");
+      console.log("Please fill in all required fields.");
       return;
     }
     try {
@@ -59,6 +59,7 @@ const RegistrationForm = () => {
       </Typography>
 
       <br />
+      <form onSubmit={save}>
       <TextField
         id="costumerFirstName"
         label="First Name"
@@ -123,10 +124,12 @@ const RegistrationForm = () => {
         variant="contained"
         className="sign-in-button col-12"
         color="warning"
-        onClick={save}
+        type="submit"
       >
         Create account
       </Button>
+      </form>
+
     </div>
   );
 };

@@ -83,8 +83,9 @@ export default function AdminTabs() {
         </AdminTabPanel>
 
         <AdminTabPanel value={value} index={1}>
-          <UserReports/>
+          
           <ProductReports/>
+          <UserReports/>
         </AdminTabPanel>
       </div>
     </>

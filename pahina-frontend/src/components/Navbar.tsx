@@ -9,7 +9,7 @@ import "../styles/Navbar.css";
 
 //Material UI
 import UserSetting from "./UserSetting";
-import Cart from "./GoToCart.tsx";
+import Cart from "./GoToCart";
 
 //components
 
