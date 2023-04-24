@@ -2,12 +2,14 @@ import React from "react";
 import pahinaLogo from "../../assets/pahina-logo.png";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange } from "@mui/material/colors";
+import AdminSetting from "./AdminSetting";
 
 const AdminHeader = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg shadow-sm p-3 mb-5 bg-body">
         <div className="container">
+          
           <a className="navbar-brand" href="#">
             <img
               src={pahinaLogo}
@@ -15,13 +17,8 @@ const AdminHeader = () => {
               className="pahina-logo img-fluid"
             />
           </a>
-
-          <div className="d-flex align-items-center">
-            <p className="m-2">Mariah Gift</p>
-            <div className="me-3">
-              <Avatar sx={{ bgcolor: deepOrange[900] }}>MG</Avatar>
-            </div>
-          </div>
+          
+          <AdminSetting/>
 
 
 
