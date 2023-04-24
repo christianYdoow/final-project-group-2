@@ -8,9 +8,16 @@ const ACTION = {
 function reducer(state, action) {
   switch (action.type) {
     case ACTION.INCREMENT:
-      return { count: state.count + 1 };
+      console.log('incrementing...');
+      return { 
+        ...state, 
+        quantity: state.quantity + 1, 
+        totalPrice: state.totalPrice + state.productPrice };
     case ACTION.DECREMENT:
-      return { count: state.count === 1 ? 1 : state.count - 1 };
+      console.log('decrementing...');
+      return { 
+        ...state, 
+        quantity: state.quantity === 1 ? 1 : state.quantity - 1, totalPrice: state.totalPrice - state.productPrice };
     default:
       return state;
   }
@@ -18,25 +25,28 @@ function reducer(state, action) {
 
 
 const CartItem = ({ cartItem, handleCheckBoxChange,index,handleRemoveFromCart,handleTotalPriceChange}) => {
-  const [currentPrice, setCurrentPrice] = useState(cartItem.productPrice);
-  const [state, dispatch] = useReducer(reducer, { count: 1 });
+  const [state, dispatch] = useReducer(reducer, {
+    itemId: cartItem.productId,
+    quantity: 1,
+    productPrice: cartItem.productPrice,
+    totalPrice: cartItem.productPrice
+  });
 
-  const curPrice = currentPrice;
 
   const handleIncrement = () => {
-    if (state.count < cartItem.productQuantity) {
+    if (state.quantity < cartItem.productQuantity) {
       dispatch({ type: 'increment' });
-      handleTotalPriceChange(currentPrice + cartItem.productPrice);
-      setCurrentPrice(currentPrice + cartItem.productPrice);
+      handleTotalPriceChange(state.itemId,state.productPrice,state.totalPrice);
       
      
     }
   };
   
   const handleDecrement = () => {
-    dispatch({ type: 'decrement' });
-    handleTotalPriceChange(currentPrice - cartItem.productPrice);
-    setCurrentPrice(currentPrice - cartItem.productPrice);
+    if (state.quantity > 1) {
+      dispatch({ type: 'decrement' });
+      handleTotalPriceChange(state.itemId,state.totalPrice);
+    }
   };
 
   const handleChangeCheckBox = (event) => {
@@ -55,11 +65,11 @@ const CartItem = ({ cartItem, handleCheckBoxChange,index,handleRemoveFromCart,ha
       <div>
         <h2>{cartItem.productName}</h2>
         <p>{cartItem.productDescription}</p>
-        <p>{cartItem.productPrice}</p>
+        <p>{state.totalPrice}</p>
       </div>
       <div className='counter'>
         <button onClick={handleIncrement}>+</button>
-        <h3 className='counterNum'>{state.count}</h3>
+        <h3 className='counterNum'>{state.quantity }</h3>
         <button onClick={handleDecrement}>-</button>
       </div>
       <div>
