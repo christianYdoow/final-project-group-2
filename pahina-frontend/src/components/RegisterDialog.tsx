@@ -7,8 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from "@mui/material/TextField";
 
-
-import RegistrationForm from './RegistrationForm';
+import Register from '../pages/Register';
 
 import '../styles/LoginForm.css'
 
@@ -48,7 +47,7 @@ export default function TransitionsModal() {
         <Fade in={open}>
           <Box sx={style}>
             
-            <RegistrationForm/>
+            <Register/>
             <Button
         variant="outlined"
         className="sign-in-button col-12 mt-2"

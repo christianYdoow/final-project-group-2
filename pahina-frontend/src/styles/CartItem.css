@@ -1,0 +1,27 @@
+.cartItem{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    align-items: center;
+}
+.checkOut{
+    display: grid;
+    grid-template-columns: 8fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    align-items: center;
+}
+.checkOutAll{
+   justify-content: start;
+   text-align: start;
+}
+.counter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.counterNum{
+    padding: 0 2rem;
+}
