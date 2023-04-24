@@ -20,6 +20,8 @@ public interface ReportRepository extends JpaRepository<Reports,Long> {
     @Query("SELECT r.productId as product, COUNT(*) " +
             "as dayCount, SUM(COUNT(*)) OVER() AS totalCount" +
             " FROM Reports r where buyDate = :dayDate GROUP BY product ORDER BY product  ")
+
+
     List<Object[]> countDayReportByProductId(@Param("dayDate")Date dayDate);
 
     @Query("SELECT r.productId as product, COUNT(*) " +

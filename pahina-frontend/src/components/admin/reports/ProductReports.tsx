@@ -24,9 +24,8 @@ function ProductReports(): JSX.Element {
       const doc = new jsPDF();
       doc.text(`Report for ${date} (${endpoint} view)`, 10, 10);
       const dataArr = data.split("\n").map((row: string) => row.split(" "));
-      let isTotalCountShown = false;
-      autoTable(doc, {
-        head: [["Product", "ID", "Count", "Total Count"]],
+      autoTable(doc,{
+        head: [["Product", "ID","Count", "Total Count"]],
         body: dataArr,
       });
 

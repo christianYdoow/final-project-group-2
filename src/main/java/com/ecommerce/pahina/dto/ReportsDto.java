@@ -8,7 +8,7 @@ import java.util.Date;
 public class ReportsDto {
 
     private int reportId;
-    private Date buydate;
+    private Date buyDate;
     private int productId;
 
 
