@@ -133,7 +133,7 @@ function App() {
             <Route path="/add-product" element= { <ProductForm/>} />
             {/* <Route path="/product" element= { <ProductManagement/>} /> */}
             <Route path="/update-product/:productId" element= { <UpdateProductDetails/>} />
-            
+        
             
           </Routes>
       </BrowserRouter>

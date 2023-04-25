@@ -132,7 +132,6 @@ const ProductForm = () => {
               <Typography id="add-product-modal" variant="h6" component="h2">
                 Add Product
               </Typography>
-
               <hr />
 
               <form onSubmit={handleSubmit} encType="multipart/form-data">

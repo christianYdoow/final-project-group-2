@@ -55,7 +55,6 @@ const ProductList = ({prod}) => {
       <div className="container d-flex align-items-center">
         <TextField type="text" value={searchKey} onChange={handleSearch} placeholder="Search..." className="ms-auto" style={{ width: "400px" }}/>
         </div>
-        <h2 className="text-center m-4">Just For You</h2>
         <div className="container mt-5">
           <div className="row ">
 

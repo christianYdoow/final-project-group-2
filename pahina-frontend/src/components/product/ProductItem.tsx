@@ -44,17 +44,18 @@ const ProductItem = ({ product }) => {
       <div className="col-md-3 mb-4 product-card">
         <img
           className="card-img-top"
-          src={"src/assets/" + product.productImage}
-          height="250px"
+          src={'../src/assets/' + product.productImage}
+          height="320px"
+          width="50px"
         />
         <div className="card-body">
           <h5 className="card-title pb-2 pt-2">
-            {product.productName.substring(0, 12)}
+            {product.productName}
           </h5>
 
           <p
             className="card-text text-black-50"
-            style={{ height: "80px", overflow: "hidden" }}
+            style={{ height: "50px", overflow: "hidden" }}
           >
             {product.productDescription}
           </p>

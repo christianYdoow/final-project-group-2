@@ -10,10 +10,11 @@ import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-export default function UpdateProductDetails2() {
+export default function UpdateProductDetails() {
   let navigate = useNavigate();
 
   const { productId } = useParams();
+
 
   const [product, setProduct] = useState({
     productName: "",
@@ -22,7 +23,7 @@ export default function UpdateProductDetails2() {
     productQuantity: "",
     status: "",
   });
-
+  
   const {
     productName,
     productDescription,
@@ -35,14 +36,17 @@ export default function UpdateProductDetails2() {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
+
   useEffect(() => {
     loadProduct();
   }, []);
 
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+
     await axios.patch(
-      `http://localhost:8080/web/api/admin/update-product/${productId}`,
+      `http://localhost:8080/web/api/admin/update-product/${productId}`, 
       product
     );
     navigate("/admin/home");
@@ -65,6 +69,7 @@ export default function UpdateProductDetails2() {
             <h2 className="text-center">Update Product Details</h2>
             <form onSubmit={(e) => onSubmit(e)}>
               <div className="mb-3">
+
                 <TextField
                   id="productName"
                   name="productName"

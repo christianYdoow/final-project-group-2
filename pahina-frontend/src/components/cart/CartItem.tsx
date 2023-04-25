@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from "react";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ACTION = {
   INCREMENT: "increment",
@@ -66,7 +66,6 @@ const CartItem = ({
   return (
     <>
       <table className="table">
-
         <tbody>
           <tr>
             <th scope="row">
@@ -76,8 +75,15 @@ const CartItem = ({
                 onChange={handleChangeCheckBox}
               />
             </th>
-            <th scope="row">Image</th>
-            <td style={{width: "50%"}}>
+            <th scope="row">
+              {" "}
+              <img
+              
+                src={"../src/assets/" + cartItem.productImage}
+                height="60px"
+              />
+            </th>
+            <td style={{ width: "50%" }}>
               <h4>{cartItem.productName}</h4>
               <p>{cartItem.productDescription}</p>
             </td>
@@ -85,21 +91,25 @@ const CartItem = ({
               <p>{state.totalPrice}</p>
             </td>
             <td>
-              <div className="counter" >
-                <button className="btn btn-secondary" onClick={handleIncrement}>+</button>
+              <div className="counter">
+                <button className="btn btn-secondary" onClick={handleIncrement}>
+                  +
+                </button>
                 <h4 className="counterNum">{state.quantity}</h4>
-                <button className="btn btn-secondary" onClick={handleDecrement}>-</button>
+                <button className="btn btn-secondary" onClick={handleDecrement}>
+                  -
+                </button>
               </div>
             </td>
             <td>
-            <div>
-          <button
-            className="btn btn-danger"
-            onClick={() => handleRemoveFromCart(cartItem)}
-          >
-            <DeleteIcon/>
-          </button>
-        </div>
+              <div>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleRemoveFromCart(cartItem)}
+                >
+                  <DeleteIcon />
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
