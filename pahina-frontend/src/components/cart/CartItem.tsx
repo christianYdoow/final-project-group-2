@@ -85,7 +85,7 @@ const CartItem = ({
             </th>
             <td style={{ width: "50%" }}>
               <h4>{cartItem.productName}</h4>
-              <p>{cartItem.productDescription}</p>
+              <p>{cartItem.productDescription.substring(0,60)}</p>
             </td>
             <td>
               <p>{state.totalPrice}</p>
