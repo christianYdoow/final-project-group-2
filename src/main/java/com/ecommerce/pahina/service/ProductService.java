@@ -6,8 +6,6 @@ import com.ecommerce.pahina.entity.Products;
 import com.ecommerce.pahina.repository.ProductRepository;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -21,7 +19,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,6 +76,50 @@ public class ProductService {
                 });
     }
 
+
+
+    public Page<Products> getAllProducts(int page, int pageSize,
+                                            String searchBy,String sortBy, String sortOrder){
+        Pageable pageable;
+        if (sortBy != null){
+            Sort sort;
+            if(sortOrder != null && sortOrder.equalsIgnoreCase("descending")){
+                sort = Sort.by(sortBy).descending();
+            }else{
+                sort = Sort.by(sortBy).ascending();
+            }
+            pageable = PageRequest.of(page - 1,pageSize,sort);
+        } else{
+            pageable = PageRequest.of(page - 1, pageSize);
+        }
+        Page<Products> pageResult;
+
+        if(searchBy != null && !searchBy.isEmpty()){
+            pageResult =  productRepository.findByProductNameContainingIgnoreCase(searchBy, pageable );
+        }
+        else{
+            pageResult = productRepository.findAll(pageable);
+        }
+
+        int totalPages = getAllProducts().size();
+        return new PageImpl<>(pageResult.getContent(), pageable, totalPages)
+                .map(product -> {
+                    Products products = new Products();
+                    products.setProductId(product.getProductId());
+                    products.setProductName(product.getProductName());
+                    products.setProductDescription(product.getProductDescription());
+                    products.setProductPrice(product.getProductPrice());
+                    products.setProductImage(product.getProductImage());
+                    products.setStatus(product.getStatus());
+                    products.setProductQuantity(product.getProductQuantity());
+                    return products;
+                });
+    }
+
+
+
+
+
     public static final String IMAGE_DIR = ".\\pahina-frontend\\src\\assets";
 
     public String uploadImage(MultipartFile file, String imageName) {
@@ -86,7 +127,7 @@ public class ProductService {
 
         if (!file.isEmpty()) {
             try {
-                originalImageName = URLDecoder.decode(file.getOriginalFilename(), "UTF-8");
+                originalImageName = URLDecoder.decode(Objects.requireNonNull(file.getOriginalFilename()), "UTF-8");
                 Path imagePath = Paths.get(IMAGE_DIR, originalImageName);
 
                 try (OutputStream os = Files.newOutputStream(imagePath)) {

@@ -1,9 +1,6 @@
 import React,{ useState,useEffect } from 'react';
 // import './App.css';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
-
-
-
 import ProductForm from './components/admin/ProductForm'
 
 //Admin
@@ -131,7 +128,6 @@ function App() {
             <Route path="/admin" element= { <AdminLogin/>} />
             <Route path="/admin/home" element= { <AdminHome/>} />
             <Route path="/add-product" element= { <ProductForm/>} />
-            {/* <Route path="/product" element= { <ProductManagement/>} /> */}
             <Route path="/update-product/:productId" element= { <UpdateProductDetails/>} />
         
             

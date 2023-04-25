@@ -1,21 +1,17 @@
 package com.ecommerce.pahina.controller;
-
 import com.ecommerce.pahina.dto.LoginDto;
 import com.ecommerce.pahina.dto.UsersDto;
-import com.ecommerce.pahina.entity.LoginMessage;
 import com.ecommerce.pahina.entity.Users;
 import com.ecommerce.pahina.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/web/api")
 public class UserController {
 
     @Autowired
@@ -35,11 +31,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public @ResponseBody LoginMessage findUserByEmail(@RequestBody LoginDto loginDto){
+    public @ResponseBody ResponseEntity<?> findUserByEmail(@RequestBody LoginDto loginDto){
         return  userService.findUserByEmail(loginDto);
     }
 
-    @PatchMapping("update-user-details")
+    @PatchMapping("/update-user-details")
     public String updateUserDetails (@RequestParam int user_id, @RequestBody UsersDto usersDto){
         return userService.updateUserDetails(user_id,usersDto);
     }

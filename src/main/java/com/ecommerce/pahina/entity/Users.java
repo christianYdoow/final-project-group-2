@@ -3,6 +3,7 @@ package com.ecommerce.pahina.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +35,6 @@ public class Users {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")})
     private List<Role> roles = new ArrayList<>();
-
-//    @OneToMany
-//    @JoinTable(name = "users",
-//            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "product_id")})
-//    private List<Products> products;
 
 }
 

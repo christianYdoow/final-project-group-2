@@ -16,4 +16,6 @@ public interface ProductRepository extends JpaRepository<Products,Long> {
     boolean existsByProductName(String productName);
 
     Page<Products> findByStatusAndProductNameContainingIgnoreCase(String status, String searchBy, Pageable pageable);
+
+    Page<Products> findByProductNameContainingIgnoreCase(String searchBy, Pageable pageable);
 }
