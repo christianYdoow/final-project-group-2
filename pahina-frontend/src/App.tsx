@@ -119,15 +119,17 @@ function App() {
             <Route path="/" element= { <Login/>} />
             <Route path="/customer/login" element= { <Login/>} />
             <Route path="/customer/register" element= { <Register/>} />
-            <Route path="/customer/home" element= { <Home products={products} handleNextPage={handleNextPage} handlePrevPage={handlePrevPage}/>} />
+            <Route path="/customer/home" element= { <Home products={products}/>} />
             <Route path="/customer/cart" element= { <Cart  cartItems={cartItems} setCartItems={setCartItems} handleRemoveFromCart={handleRemoveFromCart}/>} />
             <Route path="/product-details" element= { <ProductDetails/>} />
+
+
             {/* Admin Route */}
             <Route path="/admin" element= { <AdminLogin/>} />
             <Route path="/admin/home" element= { <AdminHome/>} />
             <Route path="/add-product" element= { <ProductForm/>} />
             <Route path="/update-product/:productId" element= { <UpdateProductDetails/>} />
-            
+        
             
           </Routes>
       </BrowserRouter>

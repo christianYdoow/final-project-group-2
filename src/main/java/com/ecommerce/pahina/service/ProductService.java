@@ -156,6 +156,20 @@ public class ProductService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+//    public ResponseEntity<HttpStatus> updateProductById(long product_id, ProductsDto productsDto, MultipartFile file, String imageName){
+//
+//        Products updateProducts = findProductById(product_id);
+//        updateProducts.setProductImage(uploadImage(file, imageName));
+//        updateProducts.setProductName(productsDto.getProductName());
+//        updateProducts.setProductDescription(productsDto.getProductDescription());
+//        updateProducts.setProductPrice(productsDto.getProductPrice());
+//        updateProducts.setProductQuantity(productsDto.getProductQuantity());
+//        updateProducts.setProductImage(productsDto.getProductImage());
+//        updateProducts.setStatus(productsDto.getStatus());
+//        productRepository.save(updateProducts);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
+
 
     public ResponseEntity<HttpStatus> addProductByForm(ProductsDto productsDto,
                                                        MultipartFile file, String imageName){

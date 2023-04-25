@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import UploadCsv from "./UploadCsv";
-import ProductList from "./ProductList";
+import ProductList from "./AdminProductList";
 import ProductForm from "./ProductForm";
 import UserReports from "./reports/UserReports";
 import ProductReports from "./reports/ProductReports";
@@ -79,7 +79,6 @@ export default function AdminTabs() {
           </div>
 
           <ProductList/>
-          {/* <ProductList /> */}
         </AdminTabPanel>
 
         <AdminTabPanel value={value} index={1}>

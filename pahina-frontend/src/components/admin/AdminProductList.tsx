@@ -30,7 +30,7 @@ function ProductList() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/web/api/admin/products?page=${page}&pageSize=10&searchKey=${searchKey}`
+          `http://localhost:8080/web/api/admin/all-products?page=${page}&pageSize=10&searchKey=${searchKey}`
         );
         const data = await response.json();
         setProducts(data.content);
@@ -138,13 +138,6 @@ function ProductList() {
                     {" "}
                     <ModeEditIcon />
                   </Link>
-
-                  {/* <button
-                    className="btn btn-danger"
-                    onClick={() => deleteUser(product.productId)}
-                  >
-                    <DeleteIcon />
-                  </button> */}
                   <Snackbar
                     open={open}
                     autoHideDuration={6000}
