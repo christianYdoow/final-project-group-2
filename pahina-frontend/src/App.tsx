@@ -8,7 +8,7 @@ import ProductForm from './components/admin/ProductForm'
 
 //Admin
 import AdminLogin from './components/admin/AdminLogin';
-import AdminHome from './components/admin/AddProduct';
+import AdminHome from './components/admin/AdminHome';
 //costumer
 import Home from './pages/Home';
 import Cart from './pages/Cart';
@@ -120,11 +120,13 @@ function App() {
     <BrowserRouter>
           <Routes>
             <Route path="/" element= { <Login/>} />
-            <Route path="/costumer/login" element= { <Login/>} />
-            <Route path="/costumer/register" element= { <Register/>} />
-            <Route path="/costumer/home" element= { <Home products={products} handleNextPage={handleNextPage} handlePrevPage={handlePrevPage}/>} />
-            <Route path="/costumer/cart" element= { <Cart  cartItems={cartItems} setCartItems={setCartItems} handleRemoveFromCart={handleRemoveFromCart}/>} />
+            <Route path="/customer/login" element= { <Login/>} />
+            <Route path="/customer/register" element= { <Register/>} />
+            <Route path="/customer/home" element= { <Home products={products}/>} />
+            <Route path="/customer/cart" element= { <Cart  cartItems={cartItems} setCartItems={setCartItems} handleRemoveFromCart={handleRemoveFromCart}/>} />
             <Route path="/product-details" element= { <ProductDetails/>} />
+
+
             {/* Admin Route */}
             <Route path="/admin" element= { <AdminLogin/>} />
             <Route path="/admin/home" element= { <AdminHome/>} />

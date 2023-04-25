@@ -27,7 +27,7 @@ const Login = () => {
                 if (res.data.message == "Email not exits") {
                   alert("Email not exits");
                 } else if (res.data.message == "Login Success") {
-                  navigate("/costumer/home");
+                  navigate("/customer/home");
                 } else {
                   alert("Incorrect Email and Password not match");
                 }

@@ -1,7 +1,7 @@
 import React, { useState, useReducer,useEffect } from "react";
 import CartList from "../components/cart/CartList";
 import "../styles/CartItem.css";
-
+import Navbar from '../components/Navbar';
 
 
 const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
@@ -84,7 +84,9 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
 
 
   return (
-    <div>
+    <>
+        <Navbar/>
+        <div className="container">
       {cartItems.length > 0 ? (
         <CartList
           cartItems={cartItems}
@@ -104,13 +106,15 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
           All
         </div>
         <div>
-          <p>Total &#8369; {totalPrice}</p>
+          <h5>Total &#8369; {totalPrice}</h5>
         </div>
         <div>
-          <button>Check Out ({numChecked})</button>
+          <button className="btn btn-primary"> <small> Check Out ({numChecked})</small></button>
         </div>
       </div>
     </div>
+    </>
+
   );
 };
 
