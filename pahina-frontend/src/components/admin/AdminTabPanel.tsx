@@ -79,7 +79,6 @@ export default function AdminTabs() {
           </div>
 
           <ProductList/>
-          {/* <ProductList /> */}
         </AdminTabPanel>
 
         <AdminTabPanel value={value} index={1}>

@@ -10,6 +10,8 @@ import Paper from "@mui/material/Paper";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 
@@ -127,12 +129,12 @@ function ProductList() {
                     to={`/update-product/${product.productId}`}
                   >
                     {" "}
-                    Update
+                    <ModeEditIcon/>
                   </Link>
 
                   <button className="btn btn-danger"
                     onClick={() => deleteUser(product.productId)}>
-                    Delete
+                    <DeleteIcon/>
                   </button>
                   <Snackbar
                     open={open}
