@@ -41,11 +41,12 @@ const ProductItem = ({ product }) => {
 
   return (
     <>
-      <div className="col-md-3 mb-4 product-card">
+      <div className="col-md-3 col-6 mb-4 product-card">
         <img
           className="card-img-top"
+          alt={product.productName}
           src={'../src/assets/' + product.productImage}
-          height="320px"
+          height="350px"
           width="50px"
         />
         <div className="card-body">
@@ -57,7 +58,7 @@ const ProductItem = ({ product }) => {
             className="card-text text-black-50"
             style={{ height: "50px", overflow: "hidden" }}
           >
-            {product.productDescription}
+            {product.productDescription.substring(0,55)}
           </p>
 
           <p className="card-text lead fw-bold">{product.productPrice}</p>

@@ -88,7 +88,7 @@ const ProductForm = () => {
           method: "POST",
           body: formData,
         });
-  
+        window.location.reload();
         // handle successful submission
       } catch (error) {
         // handle error
