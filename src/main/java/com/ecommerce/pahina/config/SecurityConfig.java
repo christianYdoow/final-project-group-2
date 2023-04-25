@@ -25,22 +25,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http ) throws Exception {
         http.csrf().disable()
-                .sessionManagement(session -> session.sessionCreationPolicy((SessionCreationPolicy.ALWAYS)))
+                .sessionManagement(session -> session.sessionCreationPolicy((SessionCreationPolicy.ALWAYS))
+                        .sessionFixation().migrateSession())
                 .authorizeHttpRequests((authorize) ->
                                  authorize
+                                         .requestMatchers("/web/api/add-user",
+                                                 "/web/api/login", "/web/api/logout").permitAll()
                                         .anyRequest().permitAll()
-                ).formLogin(
-//                        Customizer.withDefaults()
-                        form -> form
-                                .loginPage("/web/login")
-                                .loginProcessingUrl("/web/login/success")
-                                .defaultSuccessUrl("/web/home")
-                                .failureUrl("/web/login")
-                                .permitAll()
-                ).logout(
+                ).httpBasic()
+                .and()
+                .logout(
                         logout -> logout
                                 .deleteCookies("JSESSIONID")
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout"))
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/web/api/logout"))
                                 .permitAll()
                 );
         return http.build();

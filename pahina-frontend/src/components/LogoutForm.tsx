@@ -6,7 +6,7 @@ function LogoutButton() {
 
   const handleLogout = () => {
     axios
-      .get("http://localhost:8080/api/logout")
+      .get("http://localhost:8080/web/api/logout")
       .then((response) => {
         console.log(response);
         navigate("/");
