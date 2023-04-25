@@ -12,7 +12,7 @@ const Register = () => {
     const [costumerPassword, setcostumerPassword] = useState("");
     const [confirmedPassword, setConfirmedPassword] = useState("");
 
-    const save: MouseEventHandler<HTMLButtonElement> = async (event) => {
+    const save = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (costumerPassword !== confirmedPassword) {
           alert("Password do not match. Try again");
@@ -53,12 +53,14 @@ const Register = () => {
       </Typography>
 
       <br />
+      <form onSubmit={save}>
       <TextField
         id="costumerFirstName"
         label="First Name"
         type="text"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerFirstName}
         onChange={(event) => {
           setCostumerFirstName(event.target.value);
@@ -69,6 +71,7 @@ const Register = () => {
         label="Last Name"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerLastName}
         onChange={(event) => {
           setCostumerLastName(event.target.value);
@@ -80,6 +83,7 @@ const Register = () => {
         label="Email Address"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerEmail}
         onChange={(event) => {
           setCostumerEmail(event.target.value);
@@ -91,6 +95,7 @@ const Register = () => {
         label="Password"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerPassword}
         onChange={(event) => {
           setcostumerPassword(event.target.value);
@@ -102,6 +107,7 @@ const Register = () => {
         label="Confirm Password"
         variant="outlined"
         className="text-field col-12 pb-2"
+        required
         value={confirmedPassword}
         onChange={(event) => {
           setConfirmedPassword(event.target.value);
@@ -111,10 +117,12 @@ const Register = () => {
         variant="contained"
         className="sign-in-button col-12"
         color="warning"
-        onClick={save}
+        type='submit'
       >
         Create account
       </Button>
+      </form>
+
     </div>
     )
 }
