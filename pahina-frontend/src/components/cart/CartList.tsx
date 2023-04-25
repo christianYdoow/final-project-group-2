@@ -1,7 +1,7 @@
 import React from 'react'
 import CartItem from './CartItem'
 
-const CartList = ({cartItems,handleCheckBoxChange,handleRemoveFromCart,handleTotalPriceChange}) => {
+const CartList = ({cartItems,handleCheckBoxChange,handleRemoveFromCart,handleTotalPriceChange,setNewCartitem}) => {
   return (
     <ul>
         {cartItems.map((cartItem, index) => (
@@ -12,6 +12,7 @@ const CartList = ({cartItems,handleCheckBoxChange,handleRemoveFromCart,handleTot
                 index={index}
                 handleRemoveFromCart={handleRemoveFromCart}
                 handleTotalPriceChange={handleTotalPriceChange}
+                setNewCartitem={setNewCartitem}
                 
              />
         ))}

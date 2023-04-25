@@ -4,16 +4,18 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
 
 
-import ProductForm from './components/ProductForm'
 
 //Admin
 import AdminLogin from './components/admin/AdminLogin';
-import AdminHome from './components/admin/AdminAddProduct';
 //costumer
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProductDetails from './components/ProductDetails';
+import UpdateProductDetails2 from './components/admin/UpdateProductDetails2';
+import AdminHome from './components/admin/AdminHome';
+import ProductForm from './components/admin/ProductForm';
 
 
 function App() {
@@ -124,7 +126,7 @@ function App() {
             <Route path="/admin" element= { <AdminLogin/>} />
             <Route path="/admin/home" element= { <AdminHome/>} />
             <Route path="/add-product" element= { <ProductForm/>} />
-            <Route path="/product" element= { <ProductManagement/>} />
+            {/* <Route path="/product" element= { <ProductManagement/>} /> */}
             <Route path="/update-product/:productId" element= { <UpdateProductDetails2/>} />
             
             

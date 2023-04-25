@@ -1,4 +1,4 @@
-import React, { useState,useReducer } from "react";
+import React, { useState,useReducer, useEffect } from "react";
 
 const ACTION = {
   INCREMENT: "increment",
@@ -24,20 +24,29 @@ function reducer(state, action) {
 }
 
 
-const CartItem = ({ cartItem, handleCheckBoxChange,index,handleRemoveFromCart,handleTotalPriceChange}) => {
+const CartItem = ({ cartItem, handleCheckBoxChange,index,handleRemoveFromCart,handleTotalPriceChange,setNewCartitem}) => {
   const [state, dispatch] = useReducer(reducer, {
     itemId: cartItem.productId,
     quantity: 1,
     productPrice: cartItem.productPrice,
-    totalPrice: cartItem.productPrice
+    totalPrice: cartItem.productPrice,
   });
 
+  useEffect(() => {
+    setNewCartitem(state.itemId,state.totalPrice);
+  }, []);
+  
+      
 
   const handleIncrement = () => {
     if (state.quantity < cartItem.productQuantity) {
       dispatch({ type: 'increment' });
-      handleTotalPriceChange(state.itemId,state.productPrice,state.totalPrice);
       
+      handleTotalPriceChange(state.itemId,state.totalPrice);
+     
+      
+      
+      console.log(`${state.totalPrice} id nya`)
      
     }
   };

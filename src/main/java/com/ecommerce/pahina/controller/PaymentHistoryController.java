@@ -19,17 +19,16 @@ public class PaymentHistoryController {
 
 
     @GetMapping("/payment-history")
-    public ResponseEntity<Page<PaymentHistory>> getPaymentHistory(
+    public ResponseEntity<Page<Object[]>> getPaymentHistory(
             @RequestParam int user_id,
-            @RequestParam int product_id,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "20") int pageSize,
             @RequestParam(required = false, defaultValue = "") String searchKey,
-            @RequestParam(required = false, defaultValue = "productName") String sortBy,
+            @RequestParam(required = false, defaultValue = "p.productname") String sortBy,
             @RequestParam(required = false, defaultValue = "ascending") String sortOrder
     ){
 
-        Page<PaymentHistory> products = paymentHistoryService.getPageOfPaymentHistory(user_id,product_id,page,pageSize,searchKey,sortBy, sortOrder);
+        Page<Object[]> products = paymentHistoryService.getPageOfPaymentHistory(user_id,page,pageSize,searchKey,sortBy, sortOrder);
         return ResponseEntity.ok(products);
     }
 
