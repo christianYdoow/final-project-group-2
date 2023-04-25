@@ -16,26 +16,17 @@ const Login = () => {
     const login: MouseEventHandler<HTMLButtonElement> = async (event) => {
         event.preventDefault();
         try {
-          await axios
-            .post("http://localhost:8080/api/login", {
-              email: costumerEmail,
-              password: costumerPassword,
-            })
-            .then(
-              (res) => {
-                console.log(res.data);
-                if (res.data.message == "Email not exits") {
-                  alert("Email not exits");
-                } else if (res.data.message == "Login Success") {
-                  navigate("/costumer/home");
-                } else {
-                  alert("Incorrect Email and Password not match");
-                }
-              },
-              (fail) => {
-                console.error(fail); // Error!
-              }
-            );
+          const res = await axios.post("http://localhost:8080/web/api/login", {
+            email: costumerEmail,
+            password: costumerPassword,
+            });
+          if (res.data.token) {
+            localStorage.setItem("token", res.data.token); // Store token in localStorage
+            navigate("/customer/home");
+          } else {
+            alert("Incorrect email and password not match");
+          }
+          
         } catch (err) {
           alert(err);
         }
@@ -89,9 +80,7 @@ const Login = () => {
               Sign in
             </Button>{" "}
             <br /> <br />
-            {/* <Button variant="outlined" className="col-8" color="primary">
-              Create an Account
-            </Button> */}
+            
             <RegistrationDialog/>
           </div>
         </div>

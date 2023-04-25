@@ -126,7 +126,6 @@ function App() {
             <Route path="/admin" element= { <AdminLogin/>} />
             <Route path="/admin/home" element= { <AdminHome/>} />
             <Route path="/add-product" element= { <ProductForm/>} />
-            {/* <Route path="/product" element= { <ProductManagement/>} /> */}
             <Route path="/update-product/:productId" element= { <UpdateProductDetails/>} />
             
             

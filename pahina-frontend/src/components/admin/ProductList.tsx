@@ -28,7 +28,7 @@ function ProductList() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/web/api/admin/products?page=${page}&pageSize=10&searchKey=${searchKey}`
+          `http://localhost:8080/web/api/admin/all-products?page=${page}&pageSize=10&searchKey=${searchKey}`
         );
         const data = await response.json();
         setProducts(data.content);
@@ -62,10 +62,12 @@ function ProductList() {
   const deleteUser = async (productId: any) => {
     setOpen(true);
     await axios.patch(
+      
       `http://localhost:8080/web/api/admin/remove-product/${productId}`
+        
       
     );
-
+    setProducts((prevProducts) => prevProducts.filter((product) => product.productId !== productId));
   };
 
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -130,7 +132,7 @@ function ProductList() {
                     Update
                   </Link>
 
-                  <button className="btn btn-danger"
+                  {/* <button className="btn btn-danger"
                     onClick={() => deleteUser(product.productId)}>
                     Delete
                   </button>
@@ -148,12 +150,12 @@ function ProductList() {
                     </Alert>
                   </Snackbar>
 
-                  {/* <button
+                  <button
                     className="btn btn-danger"
                     onClick={() => deleteUser(product.productId)}
                   >
                     Inactive
-                  </button> */}
+                  </button>  */}
                 </TableCell>
               </TableRow>
             ))}

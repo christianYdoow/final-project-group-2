@@ -5,12 +5,16 @@ import com.ecommerce.pahina.dto.UsersDto;
 import com.ecommerce.pahina.entity.LoginMessage;
 import com.ecommerce.pahina.entity.Users;
 import com.ecommerce.pahina.repository.UserRepository;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +24,6 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    public UserService( UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     public ResponseEntity<HttpStatus> saveUser(UsersDto usersDto){
         Users users = new Users();
@@ -46,24 +45,25 @@ public class UserService {
 
 
 
-    public LoginMessage findUserByEmail(LoginDto loginDto) {
+    public ResponseEntity<?> findUserByEmail(LoginDto loginDto) {
         Users currentUser = userRepository.findByEmail(loginDto.getEmail());
         if (currentUser != null) {
             String password = loginDto.getPassword();
             String encodedPassword = currentUser.getPassword();
             boolean isCorrect = passwordEncoder.matches(password, encodedPassword);
             if (isCorrect) {
+
                 Optional<Users> user = userRepository.findOneByEmailAndPassword(loginDto.getEmail(), encodedPassword);
                 if (user.isPresent()) {
-                    return new LoginMessage("Login Success", true);
+                    return ResponseEntity.ok().body(new LoginMessage("Login Success", true));
                 } else {
-                    return new LoginMessage("Login Failed", false);
+                    return ResponseEntity.badRequest().body(new LoginMessage("Login Failed", false));
                 }
             } else {
-                return new LoginMessage("Password not Match", false);
+                return ResponseEntity.badRequest().body(new LoginMessage("Password not Match", false));
             }
         } else {
-            return new LoginMessage("Email not exist", false);
+            return ResponseEntity.badRequest().body(new LoginMessage("Email not exist", false));
         }
     }
 
