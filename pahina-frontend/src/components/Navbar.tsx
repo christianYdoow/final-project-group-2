@@ -9,7 +9,7 @@ import "../styles/Navbar.css";
 
 //Material UI
 import UserSetting from "./UserSetting";
-import Cart from "./GoToCart.tsx";
+import Cart from "./GoToCart";
 
 //components
 
@@ -18,13 +18,13 @@ const Navbar = () => {
     <>
       <nav className="navbar navbar-expand-lg shadow-sm p-3 mb-5 bg-body">
         <div className="container">
-          <a className="navbar-brand" href="#">
+          <NavLink className="navbar-brand" to="/customer/home">
             <img
               src={pahinaLogo}
               alt="Pahina Logo"
               className="pahina-logo img-fluid"
             />
-          </a>
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"

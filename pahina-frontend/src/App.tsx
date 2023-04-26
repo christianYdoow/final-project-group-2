@@ -1,21 +1,18 @@
 import React,{ useState,useEffect } from 'react';
 // import './App.css';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
-
-
-
+import ProductForm from './components/admin/ProductForm'
 
 //Admin
 import AdminLogin from './components/admin/AdminLogin';
+import AdminHome from './components/admin/AdminHome';
 //costumer
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import ProductDetails from './components/ProductDetails';
-import UpdateProductDetails2 from './components/admin/UpdateProductDetails2';
-import AdminHome from './components/admin/AdminHome';
-import ProductForm from './components/admin/ProductForm';
+import ProductDetails from './components/ProductDetails'
+import UpdateProductDetails from './components/admin/UpdateProductDetails';
 
 
 function App() {
@@ -35,6 +32,7 @@ function App() {
   const [addToCart,setAddToCart]=useState([]);
   //page size settings
   const pageSize = 10;
+  const [totalPages, setTotalPages] = useState(1);
 
   // --------------------------------All useEffect---------------------------
   
@@ -45,7 +43,9 @@ function App() {
       try{
         const response = await fetch(`http://localhost:8080/web/api/admin/products?page=${page}&pageSize=${pageSize}`);
         const data= await response.json();
-        setProducts(data);
+        setProducts(data.content);
+        setTotalPages(data.totalPages);
+        console.log("products data",data)
       }catch(error){
         console.error(error);
       }
@@ -117,18 +117,20 @@ function App() {
     <BrowserRouter>
           <Routes>
             <Route path="/" element= { <Login/>} />
-            <Route path="/costumer/login" element= { <Login/>} />
-            <Route path="/costumer/register" element= { <Register/>} />
-            <Route path="/costumer/home" element= { <Home products={products} handleNextPage={handleNextPage} handlePrevPage={handlePrevPage}/>} />
-            <Route path="/costumer/cart" element= { <Cart  cartItems={cartItems} setCartItems={setCartItems} handleRemoveFromCart={handleRemoveFromCart}/>} />
+            <Route path="/customer/login" element= { <Login/>} />
+            <Route path="/customer/register" element= { <Register/>} />
+            <Route path="/customer/home" element= { <Home products={products}/>} />
+            <Route path="/customer/cart" element= { <Cart  cartItems={cartItems} setCartItems={setCartItems} handleRemoveFromCart={handleRemoveFromCart}/>} />
             <Route path="/product-details" element= { <ProductDetails/>} />
+
+
             {/* Admin Route */}
             <Route path="/admin" element= { <AdminLogin/>} />
             <Route path="/admin/home" element= { <AdminHome/>} />
             <Route path="/add-product" element= { <ProductForm/>} />
-            {/* <Route path="/product" element= { <ProductManagement/>} /> */}
-            <Route path="/update-product/:productId" element= { <UpdateProductDetails2/>} />
-            
+            <Route path="/update-product/:productId" element= { <UpdateProductDetails/>} />
+
+        
             
           </Routes>
       </BrowserRouter>

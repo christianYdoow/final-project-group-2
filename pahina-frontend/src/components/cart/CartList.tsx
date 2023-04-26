@@ -3,7 +3,19 @@ import CartItem from './CartItem'
 
 const CartList = ({cartItems,handleCheckBoxChange,handleRemoveFromCart,handleTotalPriceChange,setNewCartitem}) => {
   return (
-    <ul>
+    <>
+    <table className="table">
+      <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Product</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+      </table>
         {cartItems.map((cartItem, index) => (
             <CartItem 
                 key={cartItem.productId}
@@ -16,7 +28,9 @@ const CartList = ({cartItems,handleCheckBoxChange,handleRemoveFromCart,handleTot
                 
              />
         ))}
-    </ul>
+
+    </>
+
   )
 }
 

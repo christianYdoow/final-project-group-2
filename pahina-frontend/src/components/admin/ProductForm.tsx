@@ -74,26 +74,26 @@ const ProductForm = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+      try {
+        const formData = new FormData();
+        formData.append("file", formValues.productImage as File);
+        formData.append("imageName", formValues.productImage?.name || "");
+        formData.append("productName", formValues.productName);
+        formData.append("productDescription", formValues.productDescription);
+        formData.append("productQuantity", String(formValues.productQuantity));
+        formData.append("productPrice", String(formValues.productPrice));
+        formData.append("status", formValues.status);
+  
+        await fetch("http://localhost:8080/web/api/admin/add-product", {
+          method: "POST",
+          body: formData,
+        });
+        window.location.reload();
+        // handle successful submission
+      } catch (error) {
+        // handle error
+      }
 
-    try {
-      const formData = new FormData();
-      formData.append("file", formValues.productImage as File);
-      formData.append("imageName", formValues.productImage?.name || "");
-      formData.append("productName", formValues.productName);
-      formData.append("productDescription", formValues.productDescription);
-      formData.append("productQuantity", String(formValues.productQuantity));
-      formData.append("productPrice", String(formValues.productPrice));
-      formData.append("status", formValues.status);
-
-      await fetch("http://localhost:8080/web/api/admin/add-product", {
-        method: "POST",
-        body: formData,
-      });
-
-      // handle successful submission
-    } catch (error) {
-      // handle error
-    }
   };
 
   const style = {
@@ -132,7 +132,6 @@ const ProductForm = () => {
               <Typography id="add-product-modal" variant="h6" component="h2">
                 Add Product
               </Typography>
-
               <hr />
 
               <form onSubmit={handleSubmit} encType="multipart/form-data">

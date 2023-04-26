@@ -1,13 +1,15 @@
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function LogoutButton() {
+  let navigate = useNavigate();
+
   const handleLogout = () => {
     axios
-      .post("http://localhost:8080/api/logout")
+      .get("http://localhost:8080/web/api/logout")
       .then((response) => {
         console.log(response);
-        window.location.reload();
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -16,13 +18,13 @@ function LogoutButton() {
 
   return (
     <>
-      <NavLink
-        to="/logout"
+      <button
+        onClick={handleLogout}
         className="d-flex text-decoration-none p-2 text-center"
         style={{ width: "150px" }}
       >
         Logout
-      </NavLink>
+      </button>
     </>
   );
 }

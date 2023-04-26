@@ -1,203 +1,123 @@
-import * as React from "react";
-import { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import AdminHeader from "./AdminHeader";
 
-//Material UI
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
+export default function UpdateProductDetails() {
+  let navigate = useNavigate();
 
-interface UpdateProductFormValues {
-  productName: string;
-  productDescription: string;
-  productQuantity: number;
-  productPrice: number;
-  productImage: File | null;
-  status: string;
-}
+  const { productId } = useParams();
 
-const UpdateProductDetails = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    // setStatus(event.target.value as string);
-    const { name, value } = event.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  const [formValues, setFormValues] = useState<UpdateProductFormValues>({
+  const [product, setProduct] = useState({
     productName: "",
     productDescription: "",
-    productQuantity: 0,
-    productPrice: 0,
-    productImage: null,
-    status: "Select a status",
+    productPrice: "",
+    productQuantity: "",
+    status: "",
   });
+  
+  const {
+    productName,
+    productDescription,
+    productPrice,
+    productQuantity,
+    status,
+  } = product;
 
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = event.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] || null;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      productImage: file,
-    }));
+
+  useEffect(() => {
+    loadProduct();
+  }, []);
+
+  const onSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+
+    await axios.patch(
+      `http://localhost:8080/web/api/admin/update-product/${productId}`, 
+      product
+    );
+    navigate("/admin/home");
   };
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    try {
-      const formData = new FormData();
-      formData.append("file", formValues.productImage as File);
-      formData.append("imageName", formValues.productImage?.name || "");
-      formData.append("productName", formValues.productName);
-      formData.append("productDescription", formValues.productDescription);
-      formData.append("productQuantity", String(formValues.productQuantity));
-      formData.append("productPrice", String(formValues.productPrice));
-      formData.append("status", formValues.status);
-
-      await fetch("http://localhost:8080/web/api/admin/add-product", {
-        method: "POST",
-        body: formData,
-      });
-
-      // handle successful submission
-    } catch (error) {
-      // handle error
-    }
-  };
-
-  const style = {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
+  const loadProduct = async () => {
+    const result = await axios.get(
+      `http://localhost:8080/web/api/admin/get-product-id/${productId}`
+    );
+    setProduct(result.data);
   };
 
   return (
     <div>
-      <div>
-        <Button variant="outlined" onClick={handleOpen} >
-          <ModeEditIcon/>
-        </Button>
-        
-        <Modal
-          aria-labelledby="update-product-modal"
-          aria-describedby="update-product-modal"
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          slots={{ backdrop: Backdrop }}
-          slotProps={{
-            backdrop: {
-              timeout: 500,
-            },
-          }}
-        >
-          <Fade in={open}>
-            <Box sx={style}>
-              <Typography id="update-product-modal" variant="h6" component="h2">
-                Update Product Details
-              </Typography>
+      <AdminHeader />
 
-              <hr />
-
-              <form onSubmit={handleSubmit} encType="multipart/form-data">
-                <label htmlFor="productImage" className="fs-5">
-                  Product Image
-                </label>
-                <input
-                  type="file"
-                  id="productImage"
-                  name="productImage"
-                  onChange={handleFileChange}
-                  accept="image/*"
-                  className="form-control mb-2"
-                  required
-                />
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
+            <h2 className="text-center">Update Product Details</h2>
+            <form onSubmit={(e) => onSubmit(e)}>
+              <div className="mb-3">
 
                 <TextField
                   id="productName"
                   name="productName"
                   type="text"
                   label="Product Name"
-                  value={formValues.productName}
-                  onChange={handleInputChange}
+                  value={productName}
+                  onChange={(e) => onInputChange(e)}
                   required
                   variant="outlined"
                   className="text-field col-12 pb-2"
                 />
+
                 <TextField
                   id="productDescription"
                   name="productDescription"
                   type="text"
-                  label="Product Description"
-                  value={formValues.productDescription}
-                  onChange={handleInputChange}
+                  label="Product Descripition"
+                  value={productDescription}
+                  onChange={(e) => onInputChange(e)}
                   required
-                  variant="outlined"
-                  className="text-field col-12 pb-2"
                   multiline
                   maxRows={4}
-                />
-                <TextField
-                  id="productQuantity"
-                  name="productQuantity"
-                  type="number"
-                  label="Product Quantity"
-                  value={formValues.productQuantity}
-                  onChange={handleInputChange}
-                  required
                   variant="outlined"
-                  className=" text-field col-12 pb-2"
+                  className="text-field col-12 pb-2"
                 />
 
                 <TextField
                   id="productPrice"
                   name="productPrice"
-                  type="number"
+                  type="text"
                   label="Product Price"
-                  value={formValues.productPrice}
-                  onChange={handleInputChange}
+                  value={productPrice}
+                  onChange={(e) => onInputChange(e)}
                   required
                   variant="outlined"
-                  className=" text-field col-12 pb-2"
+                  className="text-field col-12 pb-2"
+                />
+
+                <TextField
+                  id="productQuantity"
+                  name="productQuantity"
+                  type="text"
+                  label="Product Quantity"
+                  value={productQuantity}
+                  onChange={(e) => onInputChange(e)}
+                  required
+                  variant="outlined"
+                  className="text-field col-12 pb-2"
                 />
 
                 <Box sx={{ minWidth: 120 }}>
@@ -207,44 +127,31 @@ const UpdateProductDetails = () => {
                       labelId="status"
                       id="status"
                       name="status"
-                      value={formValues.status}
+                      value={status}
                       label="Status"
-                      onChange={handleChange}
+                      required
+                      onChange={(e) => onInputChange(e)}
                       className="mb-2"
                     >
                       <MenuItem value={"active"}>Active</MenuItem>
                       <MenuItem value={"inactive"}>Inactive</MenuItem>
-                      <MenuItem value={"Select a value"}>
-                        Select a value
-                      </MenuItem>
                     </Select>
                   </FormControl>
                 </Box>
+              </div>
 
-                <Button
-                  variant="contained"
-                  className="sign-in-button col-12"
-                  color="warning"
-                  type="submit"
-                >
-                  SUBMIT
-                </Button>
-
-                <Button
-                  variant="outlined"
-                  className="sign-in-button col-12 mt-2"
-                  color="primary"
-                  onClick={handleClose}
-                >
-                  Cancel
-                </Button>
-              </form>
-            </Box>
-          </Fade>
-        </Modal>
+              <div className="d-grid gap-2 d-md-flex justify-content-md-center">
+                <button className="btn btn-primary me-md-2" type="submit">
+                  Submit
+                </button>
+                <Link className="btn btn-outline-danger me-md-2" to="/admin/home">
+                Cancel
+              </Link>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );
-};
-
-export default UpdateProductDetails;
+}

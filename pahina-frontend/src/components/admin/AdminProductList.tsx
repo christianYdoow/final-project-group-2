@@ -7,13 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-
 import { Link, useNavigate, useParams } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 
@@ -32,7 +30,7 @@ function ProductList() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/web/api/admin/products?page=${page}&pageSize=10&searchKey=${searchKey}`
+          `http://localhost:8080/web/api/admin/all-products?page=${page}&pageSize=10&searchKey=${searchKey}`
         );
         const data = await response.json();
         setProducts(data.content);
@@ -67,9 +65,7 @@ function ProductList() {
     setOpen(true);
     await axios.patch(
       `http://localhost:8080/web/api/admin/remove-product/${productId}`
-      
     );
-
   };
 
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -105,7 +101,7 @@ function ProductList() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              {/* <TableCell>ID</TableCell> */}
+              <TableCell>Product</TableCell>
               <TableCell>Book Name</TableCell>
               <TableCell>Description</TableCell>
               <TableCell>Price</TableCell>
@@ -120,27 +116,28 @@ function ProductList() {
                 key={product.productId}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                {/* <TableCell component="th" scope="row">
-                {product.productId}
-              </TableCell> */}
+                <TableCell>
+                  {" "}
+                  <img
+                    className="card-img-top"
+                    src={"../src/assets/" + product.productImage}
+                    height="60px"
+                  />
+                </TableCell>
                 <TableCell>{product.productName}</TableCell>
                 <TableCell>{product.productDescription}</TableCell>
                 <TableCell>{product.productPrice}</TableCell>
                 <TableCell>{product.productQuantity}</TableCell>
                 <TableCell>{product.status}</TableCell>
-                <TableCell className="d-flex">
+                <TableCell>
+                  <div className="d-flex">
                   <Link
                     className="btn btn-warning mx-2"
                     to={`/update-product/${product.productId}`}
                   >
                     {" "}
-                    Update
+                    <ModeEditIcon />
                   </Link>
-
-                  <button className="btn btn-danger"
-                    onClick={() => deleteUser(product.productId)}>
-                    Delete
-                  </button>
                   <Snackbar
                     open={open}
                     autoHideDuration={6000}
@@ -154,13 +151,8 @@ function ProductList() {
                       The product has been deleted!
                     </Alert>
                   </Snackbar>
+                  </div>
 
-                  {/* <button
-                    className="btn btn-danger"
-                    onClick={() => deleteUser(product.productId)}
-                  >
-                    Inactive
-                  </button> */}
                 </TableCell>
               </TableRow>
             ))}

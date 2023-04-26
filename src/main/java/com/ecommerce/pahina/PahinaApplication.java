@@ -9,5 +9,4 @@ public class PahinaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PahinaApplication.class, args);
 	}
-
 }

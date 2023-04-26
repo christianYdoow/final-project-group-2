@@ -1,7 +1,8 @@
 import React, { useState, useReducer,useEffect } from "react";
 import CartList from "../components/cart/CartList";
 import "../styles/CartItem.css";
-
+import Navbar from '../components/Navbar';
+import axios from "axios";
 
 
 const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
@@ -23,7 +24,7 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
   };
   console.log(cartItemPrice);
 
-  const handleCheckBoxChange = (index, isChecked) => {
+  const handleCheckBoxChange = (index: string | number, isChecked: any) => {
     const newCartItems = [...cartItems];
     newCartItems[index].isChecked = isChecked;
     const numChecked = newCartItems.filter((item) => item.isChecked).length;
@@ -38,7 +39,7 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
    
   };
 
-  const handleAllCheckboxChange = (event) => {
+  const handleAllCheckboxChange = (event: { target: { checked: any; }; }) => {
     const isChecked = event.target.checked;
     let numChecked = 0;
     for (let i = 0; i < cartItems.length; i++) {
@@ -65,7 +66,9 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
 
 
   return (
-    <div>
+    <>
+        <Navbar/>
+        <div className="container">
       {cartItems.length > 0 ? (
         <CartList
           cartItems={cartItems}
@@ -86,13 +89,15 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
           All
         </div>
         <div>
-          <p>Total &#8369; {totalPrice}</p>
+          <h5>Total &#8369; {totalPrice}</h5>
         </div>
         <div>
-          <button>Check Out ({numChecked})</button>
+          <button className="btn btn-primary"> <small> Check Out ({numChecked})</small></button>
         </div>
       </div>
     </div>
+    </>
+
   );
 };
 
