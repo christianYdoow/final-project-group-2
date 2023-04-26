@@ -5,15 +5,18 @@ function LogoutButton() {
   let navigate = useNavigate();
 
   const handleLogout = () => {
-    axios
-      .get(`http://localhost:8080/web/api/logout`)
+
+    axios(`http://localhost:8080/web/api/logout`)
       .then((response) => {
         console.log(response);
         navigate("/");
       })
       .catch((error) => {
         console.log(error);
+        console.log("nagerror");
+        navigate("/");
       });
+
   };
 
 

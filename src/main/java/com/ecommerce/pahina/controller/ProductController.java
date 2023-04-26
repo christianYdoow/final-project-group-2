@@ -45,19 +45,19 @@ public class ProductController {
     public @ResponseBody ResponseEntity<HttpStatus> removeProduct(@PathVariable(value = "productId") int product_id)
     { return productService.removeProductById(product_id);}
 
-    @PatchMapping("/update-product/{productId}")
-    public @ResponseBody ResponseEntity<HttpStatus> updateProductDetails (@PathVariable(value = "productId") int product_id,
-                                                                          @RequestBody ProductsDto productsDto){
-        return productService.updateProductById(product_id,productsDto);
-    }
-
 //    @PatchMapping("/update-product/{productId}")
 //    public @ResponseBody ResponseEntity<HttpStatus> updateProductDetails (@PathVariable(value = "productId") int product_id,
-//                                                                          @RequestBody ProductsDto productsDto,
-//                                                                          @RequestParam MultipartFile file,
-//                                                                          @RequestParam String imageName){
-//        return productService.updateProductById(product_id,productsDto, file, imageName);
+//                                                                          @RequestBody ProductsDto productsDto){
+//        return productService.updateProductById(product_id,productsDto);
 //    }
+
+    @PatchMapping("/update-product/{productId}")
+    public @ResponseBody ResponseEntity<HttpStatus> updateProductDetails (@PathVariable(value = "productId") int product_id,
+                                                                          @RequestBody ProductsDto productsDto,
+                                                                          @RequestParam MultipartFile file,
+                                                                          @RequestParam String imageName){
+        return productService.updateProductById(product_id,productsDto, file, imageName);
+    }
     @PostMapping("/add-product")
     public  ResponseEntity<HttpStatus> addProductByForm(@ModelAttribute ProductsDto productsDto,
                                                                      @RequestParam MultipartFile file,

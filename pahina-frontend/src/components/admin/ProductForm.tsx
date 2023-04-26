@@ -145,7 +145,7 @@ const ProductForm = () => {
                   onChange={handleFileChange}
                   accept="image/*"
                   className="form-control mb-2"
-                  required
+                  // required
                 />
 
                 <TextField
