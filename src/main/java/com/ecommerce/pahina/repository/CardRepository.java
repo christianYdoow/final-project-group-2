@@ -1,9 +1,9 @@
 package com.ecommerce.pahina.repository;
 
-import com.ecommerce.pahina.entity.Category;
+import com.ecommerce.pahina.entity.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category,Long> {
+public interface CardRepository extends JpaRepository<Card,Long> {
 }
