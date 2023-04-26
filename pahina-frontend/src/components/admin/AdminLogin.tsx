@@ -35,7 +35,7 @@ const AdminLogin = () => {
     } else {
       try {
         await axios
-          .post("http://localhost:8080/api/admin-login", {
+          .post("http://localhost:8080/web/api/admin-login", {
             email: costumerEmail,
             password: costumerPassword,
           })
@@ -45,7 +45,7 @@ const AdminLogin = () => {
               if (res.data.message == "Email not exits") {
                 alert("Email not exits");
               } else if (res.data.message == "Login Success") {
-                navigate("/admin-home");
+                navigate("/admin/home");
               } else {
                 alert("Incorrect Email and Password not match");
               }

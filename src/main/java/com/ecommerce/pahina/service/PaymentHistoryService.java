@@ -18,7 +18,7 @@ public class PaymentHistoryService {
     PaymentHistoryRepository paymentHistoryRepository;
 
     public Page<Object[]> getPageOfPaymentHistory(int user_id,
-                                                        int page, int pageSize,
+                                                  int page, int pageSize,
                                                   String searchBy, String sortBy, String sortOrder){
         Pageable pageable;
         if (sortBy != null){

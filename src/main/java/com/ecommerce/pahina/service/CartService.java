@@ -31,8 +31,8 @@ public class CartService {
     private UserService userService;
 
     private Integer getUserByRole(long userId){
-      Users user=userService.findUserById(userId);
-      return user.getRoleId();
+        Users user=userService.findUserById(userId);
+        return user.getRoleId();
     }
 
     //get call cart--------------------------------------------------------------------------------

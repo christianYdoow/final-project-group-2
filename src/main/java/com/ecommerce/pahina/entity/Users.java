@@ -13,17 +13,17 @@ import java.util.List;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="user_id")
+    @Column(name = "user_id")
     private int userId;
-    @Column(name ="firstname")
+    @Column(name = "firstname")
     private String firstName;
-    @Column(name ="lastname")
+    @Column(name = "lastname")
     private String lastName;
-    @Column(name ="email")
+    @Column(name = "email")
     private String email;
-    @Column(name ="password")
+    @Column(name = "password")
     private String password;
-    @Column(name ="role_id")
+    @Column(name = "role_id")
     private int roleId;
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -35,6 +35,7 @@ public class Users {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")})
     private List<Role> roles = new ArrayList<>();
+}
 
 }
 
