@@ -64,9 +64,7 @@ public class UserService {
             String encodedPassword = currentUser.getPassword();
             boolean isCorrect = passwordEncoder.matches(password, encodedPassword);
             if (isCorrect) {
-
                 customUsersDetailService.loadUserByUsername(loginDto.getEmail());
-
                 Optional<Users> user = userRepository.findOneByEmailAndPassword(loginDto.getEmail(), encodedPassword);
                 if (user.isPresent()) {
                     return ResponseEntity.ok().body(new LoginMessage("Login Success", true));
@@ -81,6 +79,20 @@ public class UserService {
         }
     }
 
+    public String CheckUserRole(String email){
+        Users users = userRepository.findByEmail(email);
+
+        if(users != null){
+            if(users.getRoleId() == 0){
+                return "Admin";
+
+            } else if (users.getRoleId() == 1) {
+                return "Customer";
+            }
+        }
+
+        return "Email not exist!";
+    }
 
     public Users findUserById(long id){
         return  userRepository.findByUserId(id);

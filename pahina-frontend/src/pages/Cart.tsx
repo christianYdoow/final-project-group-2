@@ -2,6 +2,7 @@ import React, { useState, useReducer,useEffect } from "react";
 import CartList from "../components/cart/CartList";
 import "../styles/CartItem.css";
 import Navbar from '../components/Navbar';
+import axios from "axios";
 
 
 const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
@@ -16,9 +17,18 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
 
   }
 
+  const saveCart = async (cartData: any) => {
+    try {
+      const response = await axios.post('/cart', cartData);
+      // Do something with the response
+    } catch (error) {
+      // Handle the error
+    }
+  };
+
   useEffect(() => {
-    const checkedItems = cartItems.filter((item) => item.isChecked);
-    const total = checkedItems.reduce((accumulator, item) => {
+    const checkedItems = cartItems.filter((item: { isChecked: any; }) => item.isChecked);
+    const total = checkedItems.reduce((accumulator: any, item: { productId: any; isChecked: any; productPrice: any; }) => {
       const checkedCartItem = cartItemPrice.find((cartItem) => cartItem.id === item.productId && item.isChecked);
       if (checkedCartItem) {
         accumulator += checkedCartItem.totalPrice;
@@ -31,7 +41,7 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
   }, [cartItems, cartItemPrice]);
 
 
-  const handleTotalPriceChange = (id,itemPrice,totalPrice) => {
+  const handleTotalPriceChange = (id: any,itemPrice: any,totalPrice: any) => {
     const newCartItem = {
       id: id,
       itemPrice:itemPrice,
@@ -40,7 +50,7 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
     setCartItemPrice(prevState => [...prevState, newCartItem]);
   }
 
-  const handleCheckBoxChange = (index, isChecked) => {
+  const handleCheckBoxChange = (index: string | number, isChecked: any) => {
     const newCartItems = [...cartItems];
     newCartItems[index].isChecked = isChecked;
     const numChecked = newCartItems.filter((item) => item.isChecked).length;
@@ -58,7 +68,7 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
     setTotalPrice(total);
   };
 
-  const handleAllCheckboxChange = (event) => {
+  const handleAllCheckboxChange = (event: { target: { checked: any; }; }) => {
     const isChecked = event.target.checked;
     let numChecked = 0;
     for (let i = 0; i < cartItems.length; i++) {

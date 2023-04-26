@@ -38,7 +38,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public @ResponseBody ResponseEntity<?> findUserByEmail(@RequestBody LoginDto loginDto){
+    public @ResponseBody ResponseEntity<?> findUserByEmailCustomer(@RequestBody LoginDto loginDto){
+        return  userService.findUserByEmail(loginDto);
+    }
+
+    @PostMapping("/admin-login")
+    public @ResponseBody ResponseEntity<?> findUserByEmailAdmin(@RequestBody LoginDto loginDto){
         return  userService.findUserByEmail(loginDto);
     }
 
@@ -53,6 +58,10 @@ public class UserController {
         return ResponseEntity.ok().body("Logged out successfully");
     }
 
+    @GetMapping("/check-role")
+    public String checkRole(@RequestParam String email){
+        return userService.CheckUserRole(email);
+    }
 
 }
 
