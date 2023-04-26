@@ -31,7 +31,7 @@ public class PaymentService {
         if (!hasSufficientFunds(card, amount)) {
             throw new Exception("Insufficient funds");
         }
-        if (card.getCardType() == CardType.CREDIT) {
+        if (card.getCardType() == "credit") {
             BigDecimal availableCredit = card.getCardLimit().subtract(BigDecimal.valueOf(card.getCardBalance()));
             if (amount.compareTo(availableCredit) > 0) {
                 throw new Exception("Exceeded card limit");

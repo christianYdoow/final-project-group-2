@@ -44,6 +44,7 @@ public class CardService {
             card.setCardName(updatedCard.getCardName());
             card.setCardType(updatedCard.getCardType());
             card.setCardBalance(updatedCard.getCardBalance());
+            card.setUser_id(updatedCard.getUser_id());
             // Update any other fields that need to be updated
 
             return cardRepository.save(card);

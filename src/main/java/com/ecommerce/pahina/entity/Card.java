@@ -20,14 +20,14 @@ public class Card extends BaseEntity{
     private String cardName;
     private long cardBalance;
 
+    private String cardType;
 
-    @Enumerated(EnumType.STRING)
-    private CardType cardType;
+    private long user_id;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private Users users;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private Users users;
 
     public BigDecimal getCardLimit() {
         // Card limit is 2 times the card balance
