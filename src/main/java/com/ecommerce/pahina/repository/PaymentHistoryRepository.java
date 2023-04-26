@@ -18,7 +18,7 @@ public interface PaymentHistoryRepository extends JpaRepository<PaymentHistory,L
             "ph.buyDate FROM PaymentHistory AS ph join Products AS p " +
             "ON ph.product_id = p.product_id WHERE ph.user_id = :userId" )
     Page<Object[]> test(@Param("userId")int user_id,
-                                Pageable pageable);
+                        Pageable pageable);
 
 
 

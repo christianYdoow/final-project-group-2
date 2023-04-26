@@ -1,5 +1,4 @@
-import React, { useState, useReducer } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React, { useState,useReducer, useEffect } from "react";
 
 const ACTION = {
   INCREMENT: "increment",
@@ -27,13 +26,8 @@ function reducer(state, action) {
   }
 }
 
-const CartItem = ({
-  cartItem,
-  handleCheckBoxChange,
-  index,
-  handleRemoveFromCart,
-  handleTotalPriceChange,
-}) => {
+
+const CartItem = ({ cartItem, handleCheckBoxChange,index,handleRemoveFromCart,handleTotalPriceChange,setNewCartitem}) => {
   const [state, dispatch] = useReducer(reducer, {
     itemId: cartItem.productId,
     quantity: 1,
@@ -41,14 +35,22 @@ const CartItem = ({
     totalPrice: cartItem.productPrice,
   });
 
+  useEffect(() => {
+    setNewCartitem(state.itemId,state.totalPrice);
+  }, []);
+  
+      
+
   const handleIncrement = () => {
     if (state.quantity < cartItem.productQuantity) {
-      dispatch({ type: "increment" });
-      handleTotalPriceChange(
-        state.itemId,
-        state.productPrice,
-        state.totalPrice
-      );
+      dispatch({ type: 'increment' });
+      
+      handleTotalPriceChange(state.itemId,state.totalPrice);
+     
+      
+      
+      console.log(`${state.totalPrice} id nya`)
+     
     }
   };
 

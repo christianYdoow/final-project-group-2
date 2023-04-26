@@ -79,7 +79,7 @@ public class ProductService {
 
 
     public Page<Products> getAllProducts(int page, int pageSize,
-                                            String searchBy,String sortBy, String sortOrder){
+                                         String searchBy,String sortBy, String sortOrder){
         Pageable pageable;
         if (sortBy != null){
             Sort sort;
