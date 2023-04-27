@@ -106,6 +106,7 @@ function ProductList() {
               <TableCell>Description</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Quantity</TableCell>
+              <TableCell>Category</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
@@ -128,6 +129,7 @@ function ProductList() {
                 <TableCell>{product.productDescription}</TableCell>
                 <TableCell>{product.productPrice}</TableCell>
                 <TableCell>{product.productQuantity}</TableCell>
+                <TableCell>{product.categoryId}</TableCell>
                 <TableCell>{product.status}</TableCell>
                 <TableCell>
                   <div className="d-flex">

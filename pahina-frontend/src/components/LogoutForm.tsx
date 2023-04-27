@@ -5,16 +5,21 @@ function LogoutButton() {
   let navigate = useNavigate();
 
   const handleLogout = () => {
-    axios
-      .get("http://localhost:8080/web/api/logout")
+
+    axios(`http://localhost:8080/web/api/logout`)
       .then((response) => {
         console.log(response);
         navigate("/");
       })
       .catch((error) => {
         console.log(error);
+        console.log("nagerror");
+        navigate("/");
       });
+
   };
+
+
 
   return (
     <>
@@ -30,3 +35,26 @@ function LogoutButton() {
 }
 
 export default LogoutButton;
+
+
+// import React, { useState } from 'react';
+
+// function Logout() {
+//   const [message, setMessage] = useState('');
+
+//   const handleLogout = () => {
+//     fetch('http://localhost:8080/web/api/logout')
+//       .then(response => response.text())
+//       .then(data => setMessage(data))
+//       .catch(error => console.error(error));
+//   };
+
+//   return (
+//     <div>
+//       <button onClick={handleLogout}>Logout</button>
+//       <p>{message}</p>
+//     </div>
+//   );
+// }
+
+// export default Logout;

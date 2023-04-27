@@ -1,4 +1,5 @@
 import React, { useState,useReducer, useEffect } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const ACTION = {
   INCREMENT: "increment",
@@ -12,7 +13,7 @@ function reducer(state, action) {
       return {
         ...state,
         quantity: state.quantity + 1,
-        totalPrice: state.totalPrice + state.productPrice,
+        totalPrice: state.totalPrice + (state.productPrice * state.quantity),
       };
     case ACTION.DECREMENT:
       console.log("decrementing...");
@@ -41,25 +42,63 @@ const CartItem = ({ cartItem, handleCheckBoxChange,index,handleRemoveFromCart,ha
   
       
 
+  // const handleIncrement = () => {
+  //   if (state.quantity < cartItem.productQuantity) {
+  //     dispatch({ type: 'increment' });
+      
+  //     handleTotalPriceChange(state.itemId,state.totalPrice);
+     
+      
+      
+  //     console.log(`${state.totalPrice} id nya`)
+     
+  //   }
+  // };
+
+  // const handleDecrement = () => {
+  //   if (state.quantity > 1) {
+  //     dispatch({ type: "decrement" });
+  //     handleTotalPriceChange(state.itemId, state.totalPrice);
+  //   }
+  // };
+
   const handleIncrement = () => {
     if (state.quantity < cartItem.productQuantity) {
       dispatch({ type: 'increment' });
-      
-      handleTotalPriceChange(state.itemId,state.totalPrice);
-     
-      
-      
-      console.log(`${state.totalPrice} id nya`)
-     
+  
+      const newTotalPrice = (state.totalPrice + state.productPrice);
+      handleTotalPriceChange(state.itemId, newTotalPrice, state.quantity);
+  
+      console.log(`${newTotalPrice} id nya`)
     }
   };
-
+  
   const handleDecrement = () => {
     if (state.quantity > 1) {
       dispatch({ type: "decrement" });
-      handleTotalPriceChange(state.itemId, state.totalPrice);
+  
+      const newTotalPrice = (state.totalPrice - state.productPrice);
+      handleTotalPriceChange(state.itemId, newTotalPrice, state.quantity - 1);
     }
   };
+
+  // const handleTotalPriceChange = (itemId, newTotalPrice, quantity) => {
+  //   const newCartItems = cartItems.map((cartItem) => {
+  //     if (cartItem.productId === itemId) {
+  //       return {
+  //         ...cartItem,
+  //         productPrice: cartItem.productPrice * quantity,
+  //       };
+  //     }
+  //     return cartItem;
+  //   });
+  
+  //   const newTotal = newCartItems.reduce((acc, curr) => acc + curr.productPrice, 0);
+  
+  //   setCartItems(newCartItems);
+  //   setTotalPrice(newTotal);
+  // };
+  
 
   const handleChangeCheckBox = (event) => {
     handleCheckBoxChange(index, event.target.checked);

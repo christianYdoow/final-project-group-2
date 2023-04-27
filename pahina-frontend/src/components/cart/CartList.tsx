@@ -2,6 +2,8 @@ import React from 'react'
 import CartItem from './CartItem'
 
 const CartList = ({cartItems,handleCheckBoxChange,handleRemoveFromCart,handleTotalPriceChange,setNewCartitem}) => {
+
+  
   return (
     <>
     <table className="table">

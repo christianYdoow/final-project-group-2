@@ -13,15 +13,16 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
   const [numChecked, setNumChecked] = useState(0);
 
   
-  const handleTotal = () => {
-    const total = newCartItem.reduce((accumulator, current) => accumulator + current.totalPrice, 0);
-    return total;
-  };
+  // const handleTotal = () => {
+  //   const total = newCartItem.reduce((accumulator, current) => accumulator + current.totalPrice, 0);
+  //   return total;
+  // };
 
   const handleTotalPriceChange = (itemId, price) => {
     const newCartItemPrice = { id: itemId, totalPrice:price };
     setCartItemPrice([...cartItemPrice, newCartItemPrice]);
   };
+  
   console.log(cartItemPrice);
 
   const handleCheckBoxChange = (index: string | number, isChecked: any) => {
@@ -36,7 +37,7 @@ const Cart = ({ cartItems, setCartItems, handleRemoveFromCart }) => {
     setCartItems(newCartItems);
     handleTotalPriceChange(newCartItems[index].productId, newCartItems[index].productPrice);
 
-   
+
   };
 
   const handleAllCheckboxChange = (event: { target: { checked: any; }; }) => {

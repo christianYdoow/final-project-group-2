@@ -21,7 +21,7 @@ const Register = () => {
         }
         try {
           await axios.post(
-            "http://localhost:8080/api/add-user",
+            "http://localhost:8080/web/api/add-user",
             {
               email: costumerEmail,
               firstName: costumerFirstName,

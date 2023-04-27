@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ProductDetails from './components/ProductDetails'
 import UpdateProductDetails from './components/admin/UpdateProductDetails';
+import PaymentForm from './components/PaymentForm';
 
 
 function App() {
@@ -122,6 +123,8 @@ function App() {
             <Route path="/customer/home" element= { <Home products={products}/>} />
             <Route path="/customer/cart" element= { <Cart  cartItems={cartItems} setCartItems={setCartItems} handleRemoveFromCart={handleRemoveFromCart}/>} />
             <Route path="/product-details" element= { <ProductDetails/>} />
+            <Route path="/payment" element= { <PaymentForm/>} />
+
 
 
             {/* Admin Route */}

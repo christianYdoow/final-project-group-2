@@ -66,6 +66,7 @@ public class ProductService {
                 .map(product -> {
                     Products products = new Products();
                     products.setProductId(product.getProductId());
+                    products.setCategoryId(product.getCategoryId());
                     products.setProductName(product.getProductName());
                     products.setProductDescription(product.getProductDescription());
                     products.setProductPrice(product.getProductPrice());
@@ -105,6 +106,7 @@ public class ProductService {
         return new PageImpl<>(pageResult.getContent(), pageable, totalPages)
                 .map(product -> {
                     Products products = new Products();
+                    products.setCategoryId(product.getCategoryId());
                     products.setProductId(product.getProductId());
                     products.setProductName(product.getProductName());
                     products.setProductDescription(product.getProductDescription());
@@ -147,6 +149,7 @@ public class ProductService {
 
         Products updateProducts = findProductById(product_id);
         updateProducts.setProductName(productsDto.getProductName());
+//        updateProducts.setProductName( productsDto.getProductName() != null ? productsDto.getProductName() : updateProducts.getProductName()); ;
         updateProducts.setProductDescription(productsDto.getProductDescription());
         updateProducts.setProductPrice(productsDto.getProductPrice());
         updateProducts.setProductQuantity(productsDto.getProductQuantity());
@@ -159,12 +162,13 @@ public class ProductService {
 //    public ResponseEntity<HttpStatus> updateProductById(long product_id, ProductsDto productsDto, MultipartFile file, String imageName){
 //
 //        Products updateProducts = findProductById(product_id);
+//        if (!file.isEmpty()) {
 //        updateProducts.setProductImage(uploadImage(file, imageName));
+//        }
 //        updateProducts.setProductName(productsDto.getProductName());
 //        updateProducts.setProductDescription(productsDto.getProductDescription());
 //        updateProducts.setProductPrice(productsDto.getProductPrice());
 //        updateProducts.setProductQuantity(productsDto.getProductQuantity());
-//        updateProducts.setProductImage(productsDto.getProductImage());
 //        updateProducts.setStatus(productsDto.getStatus());
 //        productRepository.save(updateProducts);
 //        return new ResponseEntity<>(HttpStatus.OK);
@@ -175,6 +179,7 @@ public class ProductService {
                                                        MultipartFile file, String imageName){
         Products products = new Products();
         productsDto.setProductImage(uploadImage(file, imageName));
+        products.setCategoryId(productsDto.getCategoryId());
         products.setProductName(productsDto.getProductName());
         products.setProductDescription(productsDto.getProductDescription());
         products.setProductPrice(productsDto.getProductPrice());
