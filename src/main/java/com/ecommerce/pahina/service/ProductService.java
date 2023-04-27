@@ -145,34 +145,34 @@ public class ProductService {
         return originalImageName;
     }
 
-//    public ResponseEntity<HttpStatus> updateProductById(long product_id, ProductsDto productsDto){
-//
-//        Products updateProducts = findProductById(product_id);
-//        updateProducts.setProductName(productsDto.getProductName());
-////        updateProducts.setProductName( productsDto.getProductName() != null ? productsDto.getProductName() : updateProducts.getProductName()); ;
-//        updateProducts.setProductDescription(productsDto.getProductDescription());
-//        updateProducts.setProductPrice(productsDto.getProductPrice());
-//        updateProducts.setProductQuantity(productsDto.getProductQuantity());
-//        updateProducts.setProductImage(productsDto.getProductImage());
-//        updateProducts.setStatus(productsDto.getStatus());
-//        productRepository.save(updateProducts);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-
-    public ResponseEntity<HttpStatus> updateProductById(long product_id, ProductsDto productsDto, MultipartFile file, String imageName){
+    public ResponseEntity<HttpStatus> updateProductById(long product_id, ProductsDto productsDto){
 
         Products updateProducts = findProductById(product_id);
-        if (!file.isEmpty()) {
-        updateProducts.setProductImage(uploadImage(file, imageName));
-        }
         updateProducts.setProductName(productsDto.getProductName());
+//        updateProducts.setProductName( productsDto.getProductName() != null ? productsDto.getProductName() : updateProducts.getProductName()); ;
         updateProducts.setProductDescription(productsDto.getProductDescription());
         updateProducts.setProductPrice(productsDto.getProductPrice());
         updateProducts.setProductQuantity(productsDto.getProductQuantity());
+        updateProducts.setProductImage(productsDto.getProductImage());
         updateProducts.setStatus(productsDto.getStatus());
         productRepository.save(updateProducts);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+//    public ResponseEntity<HttpStatus> updateProductById(long product_id, ProductsDto productsDto, MultipartFile file, String imageName){
+//
+//        Products updateProducts = findProductById(product_id);
+//        if (!file.isEmpty()) {
+//        updateProducts.setProductImage(uploadImage(file, imageName));
+//        }
+//        updateProducts.setProductName(productsDto.getProductName());
+//        updateProducts.setProductDescription(productsDto.getProductDescription());
+//        updateProducts.setProductPrice(productsDto.getProductPrice());
+//        updateProducts.setProductQuantity(productsDto.getProductQuantity());
+//        updateProducts.setStatus(productsDto.getStatus());
+//        productRepository.save(updateProducts);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 
     public ResponseEntity<HttpStatus> addProductByForm(ProductsDto productsDto,
