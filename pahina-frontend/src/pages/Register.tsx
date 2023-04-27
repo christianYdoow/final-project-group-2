@@ -1,50 +1,50 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React,{useState} from 'react';
+
 import { MouseEventHandler } from "react";
-import { Link } from 'react-router-dom';
+import axios from "axios";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-const RegistrationForm = () => {
-  const [costumerEmail, setCostumerEmail] = useState("");
-  const [costumerFirstName, setCostumerFirstName] = useState("");
-  const [costumerLastName, setCostumerLastName] = useState("");
-  const [costumerPassword, setcostumerPassword] = useState("");
-  const [confirmedPassword, setConfirmedPassword] = useState("");
-  const costumerRoleId = 1;
+const Register = () => {
+    const [costumerEmail, setCostumerEmail] = useState("");
+    const [costumerFirstName, setCostumerFirstName] = useState("");
+    const [costumerLastName, setCostumerLastName] = useState("");
+    const [costumerPassword, setcostumerPassword] = useState("");
+    const [confirmedPassword, setConfirmedPassword] = useState("");
 
-  const save: MouseEventHandler<HTMLButtonElement> = async (event) => {
-    event.preventDefault();
-    if (costumerPassword !== confirmedPassword) {
-      alert("Password do not match. Try again");
-      return;
-    }
-    try {
-      await axios.post(
-        "http://localhost:8080/api/add-user",
-        {
-          email: costumerEmail,
-          firstName: costumerFirstName,
-          lastName: costumerLastName,
-          password: costumerPassword,
-          roleId: costumerRoleId,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5173",
-          },
+    const save = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if (costumerPassword !== confirmedPassword) {
+          alert("Password do not match. Try again");
+          return;
         }
-      );
-      alert("Costumer Registration Successfully");
-    } catch (err) {
-      alert(err);
-    }
-  };
+        try {
+          await axios.post(
+            "http://localhost:8080/web/api/add-user",
+            {
+              email: costumerEmail,
+              firstName: costumerFirstName,
+              lastName: costumerLastName,
+              password: costumerPassword,
+              roleId: costumerRoleId,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "http://localhost:5173",
+              },
+            }
+          );
+          alert("Costumer Registration Successfully");
+        } catch (err) {
+          alert(err);
+        }
+    };
 
-  return (
-    <div>
+    const costumerRoleId = 1;
+    return (
+        <div>
       <Typography id="transition-modal-title" variant="h6" component="h2">
         Create an account
       </Typography>
@@ -54,12 +54,14 @@ const RegistrationForm = () => {
       </Typography>
 
       <br />
+      <form onSubmit={save}>
       <TextField
         id="costumerFirstName"
         label="First Name"
         type="text"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerFirstName}
         onChange={(event) => {
           setCostumerFirstName(event.target.value);
@@ -70,6 +72,7 @@ const RegistrationForm = () => {
         label="Last Name"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerLastName}
         onChange={(event) => {
           setCostumerLastName(event.target.value);
@@ -81,6 +84,7 @@ const RegistrationForm = () => {
         label="Email Address"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerEmail}
         onChange={(event) => {
           setCostumerEmail(event.target.value);
@@ -92,6 +96,7 @@ const RegistrationForm = () => {
         label="Password"
         variant="outlined"
         className=" text-field col-12 pb-2"
+        required
         value={costumerPassword}
         onChange={(event) => {
           setcostumerPassword(event.target.value);
@@ -103,6 +108,7 @@ const RegistrationForm = () => {
         label="Confirm Password"
         variant="outlined"
         className="text-field col-12 pb-2"
+        required
         value={confirmedPassword}
         onChange={(event) => {
           setConfirmedPassword(event.target.value);
@@ -112,12 +118,14 @@ const RegistrationForm = () => {
         variant="contained"
         className="sign-in-button col-12"
         color="warning"
-        onClick={save}
+        type='submit'
       >
         Create account
       </Button>
-    </div>
-  );
-};
+      </form>
 
-export default RegistrationForm;
+    </div>
+    )
+}
+
+export default Register

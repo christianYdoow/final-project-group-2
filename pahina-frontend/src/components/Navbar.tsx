@@ -1,22 +1,30 @@
 import React from "react";
-
-//components
-// import {logout} from './Logout';
+import { NavLink } from "react-router-dom";
 
 //assests
-import pahinaLogo from '../assets/pahina-logo.png';
+import pahinaLogo from "../assets/pahina-logo.png";
 
 //styles
-import '../styles/Navbar.css';
+import "../styles/Navbar.css";
+
+//Material UI
+import UserSetting from "./UserSetting";
+import Cart from "./GoToCart";
+
+//components
 
 const Navbar = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg">
+      <nav className="navbar navbar-expand-lg shadow-sm p-3 mb-5 bg-body">
         <div className="container">
-          <a className="navbar-brand" href="#">
-           <img src={pahinaLogo} alt="Pahina Logo" className="pahina-logo img-fluid" />
-          </a>
+          <NavLink className="navbar-brand" to="/customer/home">
+            <img
+              src={pahinaLogo}
+              alt="Pahina Logo"
+              className="pahina-logo img-fluid"
+            />
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -29,65 +37,21 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Link
-                </a>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Categories
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  {/* <li><hr className="dropdown-divider"></li> */}
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item"></li>
-            </ul>
-            <form className="d-flex ">
+            <form className="d-flex">
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                style={{ width: "380px" }}
               />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
             </form>
 
-            {/* <button className="btn btn-outline-primary" onClick={logout} >
-                Logout
-              </button> */}
-             
+            <div className="d-flex ms-auto">
+              <UserSetting />
+              <Cart />
+            </div>
+
           </div>
         </div>
       </nav>

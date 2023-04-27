@@ -7,7 +7,7 @@ import lombok.Data;
 @Entity
 @Table(name = "carts")
 @Data
-public class Carts {
+public class Carts extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="cart_id")
@@ -20,5 +20,8 @@ public class Carts {
     private long userId;
     @Column(name="quantity")
     private long quantity;
+
+    @Column(name="price")
+    private Long price;
 
 }

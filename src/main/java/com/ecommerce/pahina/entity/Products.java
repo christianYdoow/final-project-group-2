@@ -1,5 +1,6 @@
 package com.ecommerce.pahina.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,11 +35,26 @@ public class Products {
     @Column(name="user_id")
     private int userId;
 
+    @Column(name = "category_id")
+    private long categoryId;
+
     @ManyToMany
     @JoinTable(name = "carts",
             joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "product_id")},
             inverseJoinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "cart_id")})
     private List<Carts> carts;
+
+    @ManyToMany
+    @JoinTable(name = "reports",
+            joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "product_id")},
+            inverseJoinColumns = {@JoinColumn(name = "report_id", referencedColumnName = "report_id")})
+    private List<Reports> reports;
+
+    @JsonIgnore
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false, insertable=false, updatable=false)
+    private Category category;
+
 
 }
 
