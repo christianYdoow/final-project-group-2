@@ -15,27 +15,27 @@ export default function UpdateProductDetails() {
 
   const { productId } = useParams();
 
-
   const [product, setProduct] = useState({
     productName: "",
     productDescription: "",
     productPrice: "",
     productQuantity: "",
+    categoryId: "",
     status: "",
   });
-  
+
   const {
     productName,
     productDescription,
     productPrice,
     productQuantity,
+    categoryId,
     status,
   } = product;
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
-
 
   useEffect(() => {
     loadProduct();
@@ -44,9 +44,8 @@ export default function UpdateProductDetails() {
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-
     await axios.patch(
-      `http://localhost:8080/web/api/admin/update-product/${productId}`, 
+      `http://localhost:8080/web/api/admin/update-product/${productId}`,
       product
     );
     navigate("/admin/home");
@@ -69,7 +68,6 @@ export default function UpdateProductDetails() {
             <h2 className="text-center">Update Product Details</h2>
             <form onSubmit={(e) => onSubmit(e)}>
               <div className="mb-3">
-
                 <TextField
                   id="productName"
                   name="productName"
@@ -122,6 +120,26 @@ export default function UpdateProductDetails() {
 
                 <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
+                    <InputLabel id="categoryId">Category</InputLabel>
+                    <Select
+                      labelId="categoryId"
+                      id="categoryId"
+                      name="categoryId"
+                      value={categoryId}
+                      label="Category"
+                      required
+                      onChange={(e) => onInputChange(e)}
+                      className="mb-2"
+                    >
+                      <MenuItem value={1}>Science Fiction</MenuItem>
+                      <MenuItem value={2}>Non Fiction</MenuItem>
+                      <MenuItem value={3}>Personal Finance</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
                     <InputLabel id="status">Status</InputLabel>
                     <Select
                       labelId="status"
@@ -144,9 +162,12 @@ export default function UpdateProductDetails() {
                 <button className="btn btn-primary me-md-2" type="submit">
                   Submit
                 </button>
-                <Link className="btn btn-outline-danger me-md-2" to="/admin/home">
-                Cancel
-              </Link>
+                <Link
+                  className="btn btn-outline-danger me-md-2"
+                  to="/admin/home"
+                >
+                  Cancel
+                </Link>
               </div>
             </form>
           </div>

@@ -21,6 +21,7 @@ interface ProductFormValues {
   productPrice: number;
   productImage: File | null;
   status: string;
+  categoryId: number;
 }
 
 const ProductForm = () => {
@@ -44,6 +45,7 @@ const ProductForm = () => {
     productPrice: 0,
     productImage: null,
     status: "Select a status",
+    categoryId: 0
   });
 
   const handleInputChange = (
@@ -64,13 +66,13 @@ const ProductForm = () => {
     }));
   };
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
+  // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const { name, value } = event.target;
+  //   setFormValues((prevValues) => ({
+  //     ...prevValues,
+  //     [name]: value,
+  //   }));
+  // };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -83,6 +85,7 @@ const ProductForm = () => {
         formData.append("productQuantity", String(formValues.productQuantity));
         formData.append("productPrice", String(formValues.productPrice));
         formData.append("status", formValues.status);
+        formData.append("categoryId", String(formValues.categoryId));
   
         await fetch("http://localhost:8080/web/api/admin/add-product", {
           method: "POST",
@@ -210,6 +213,25 @@ const ProductForm = () => {
                     >
                       <MenuItem value={"active"}>Active</MenuItem>
                       <MenuItem value={"inactive"}>Inactive</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="categoryId">Category</InputLabel>
+                    <Select
+                      labelId="categoryId"
+                      id="categoryId"
+                      name="categoryId"
+                      value={formValues.categoryId}
+                      label="Category"
+                      onChange={handleChange}
+                      className="mb-2"
+                    >
+                      <MenuItem value={1}>Science Fiction</MenuItem>
+                      <MenuItem value={2}>Non Fiction</MenuItem>
+                      <MenuItem value={3}>Personal Finance</MenuItem>
                     </Select>
                   </FormControl>
                 </Box>
